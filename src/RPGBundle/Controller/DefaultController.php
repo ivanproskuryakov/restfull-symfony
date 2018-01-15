@@ -39,9 +39,7 @@ class DefaultController extends Controller
      */
     public function indexAction() : Response
     {
-        return new Response(
-            $this->twig->render('RPGBundle:Default:index.html.twig')
-        );
+        return new Response();
     }
 
     /**
