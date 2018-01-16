@@ -1,0 +1,14 @@
+services:
+    app_user.service:
+        class: AppBundle\Service\UserService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.encoder_factory"
+            - "@security.token_storage"
+
+    ha.validator.unique_user_email:
+        class: AppBundle\Validation\UniqueUserEmailValidator
+        arguments:
+            - '@app_user.service'
+        tags:
+            - { name: validator.constraint_validator, alias: unique_user_email }

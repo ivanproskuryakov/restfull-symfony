@@ -1,0 +1,14 @@
+ha_user_login:
+    path: /login
+    defaults: { _controller: AppBundle:Api/User:login }
+    methods:  [POST]
+
+ha_user_post:
+    path: /
+    defaults: { _controller: AppBundle:Api/User:post }
+    methods:  [POST]
+
+ha_user_get:
+    path: /{id}
+    defaults: { _controller: AppBundle:Api/User:get }
+    methods:  [GET]

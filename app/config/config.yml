@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: config/doctrine.yml }
     - { resource: security.yml }
-    - { resource: "@RPGBundle/Resources/config/services.yml" }
+    - { resource: "@AppBundle/Resources/config/services/user.yml" }
 
 framework:
     #esi: ~
@@ -28,8 +28,3 @@ framework:
     assets: ~
     php_errors:
         log: true
-
-# Twig Configuration
-twig:
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'

@@ -1,7 +1,0 @@
-services:
-    rpg.example.sum:
-      class: RPGBundle\Service\SumService
-
-    default_controller:
-      class: RPGBundle\Controller\DefaultController
-      autowire: true
