@@ -23,7 +23,7 @@ class UserController extends ApiControllerTemplate
     {
         $payload = json_decode($request->getContent(), true);
 
-        $this->get('ha.user_manager')->login(
+        $this->get('app_user.service')->login(
             $payload['email'],
             $payload['password']
         );

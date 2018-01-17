@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -11,7 +11,6 @@ trait UpdateCreateTrait
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
      * @JMS\Expose
      * @JMS\Type("DateTime")
      * @JMS\Groups({"collection","details"})
@@ -21,7 +20,6 @@ trait UpdateCreateTrait
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
      * @JMS\Expose
      * @JMS\Type("DateTime")
      * @JMS\Groups({"collection","details"})

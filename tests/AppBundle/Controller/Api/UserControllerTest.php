@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Controller\Api;
 
 use Tests\AppBundle\AbstractWebTestCase;
-use Tests\Utils\Traits\UserTrait;
+use Tests\Traits\UserTrait;
 
 class UserControllerTest extends AbstractWebTestCase
 {
@@ -22,7 +22,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_login'),
+            $this->generateRoute('app_user_login'),
             [],
             [],
             [
@@ -56,7 +56,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_login'),
+            $this->generateRoute('app_user_login'),
             [],
             [],
             [
@@ -91,7 +91,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_login'),
+            $this->generateRoute('app_user_login'),
             [],
             [],
             [
@@ -122,7 +122,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_post'),
+            $this->generateRoute('app_user_post'),
             [],
             [],
             [
@@ -152,7 +152,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_post'),
+            $this->generateRoute('app_user_post'),
             [],
             [],
             [
@@ -186,7 +186,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_post'),
+            $this->generateRoute('app_user_post'),
             [],
             [],
             [
@@ -219,7 +219,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('ha_user_post'),
+            $this->generateRoute('app_user_post'),
             [],
             [],
             [
@@ -246,7 +246,7 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'GET',
-            $this->generateRoute('ha_user_get',[
+            $this->generateRoute('app_user_get',[
                 'id' => $user->getId()
             ]),
             [],

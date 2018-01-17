@@ -3,8 +3,8 @@ parameters:
     env(SESSION_DIR): '%kernel.project_dir%/var/sessions'
     env(MYSQL_HOST): 127.0.0.1
     database_port: null
-    env(MYSQL_USER): null
-    env(MYSQL_PASSWORD): null
-    env(MYSQL_DATABASE): null
+    env(MYSQL_USER): root
+    env(MYSQL_PASSWORD): 12qw12
+    env(MYSQL_DATABASE): auto1_rpg
 
     secret: 2211e14525b768f4fd27365e29ceb953619c588e

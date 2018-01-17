@@ -9,8 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 use JMS\Serializer\Annotation as JMS;
 
-use AppBundle\Entity\IdTrait;
-use AppBundle\Entity\UpdateCreateTrait;
+use AppBundle\Entity\Traits\IdTrait;
+use AppBundle\Entity\Traits\UpdateCreateTrait;
 
 /**
  * @JMS\ExclusionPolicy("all")

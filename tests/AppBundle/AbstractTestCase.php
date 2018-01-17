@@ -10,7 +10,6 @@ use Faker;
 
 abstract class AbstractTestCase extends KernelTestCase
 {
-
     /**
      * @var \Faker\Generator
      */
