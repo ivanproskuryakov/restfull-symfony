@@ -13,9 +13,9 @@ class UserTest extends AbstractTestCase
     {
         $user = $this->newUserPersistent();
 
-        var_dump($user);
-        exit();
+        $this->assertNotEmpty($user->getId());
 
+        $this->removeEntity($user);
     }
 
 

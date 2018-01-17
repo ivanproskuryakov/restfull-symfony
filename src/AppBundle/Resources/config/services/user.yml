@@ -12,3 +12,12 @@ services:
             - '@app_user.service'
         tags:
             - { name: validator.constraint_validator, alias: unique_user_email }
+
+
+    aisel_frontend_user_persistence_listener:
+        class: AppBundle\EventListener\UserPersistenceListener
+        arguments:
+            - "@security.encoder_factory"
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

@@ -6,8 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use JMS\Serializer\Annotation as JMS;
+
+use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
 use AppBundle\Entity\Traits\UpdateCreateTrait;
@@ -21,6 +22,8 @@ use AppBundle\Entity\Traits\UpdateCreateTrait;
  */
 class User implements AdvancedUserInterface
 {
+
+    const ROLE_USER = 'ROLE_USER';
 
     use IdTrait;
     use UpdateCreateTrait;
@@ -56,7 +59,7 @@ class User implements AdvancedUserInterface
      * @ORM\Column(type="string", length=255)
      * @JMS\Exclude
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
@@ -64,7 +67,7 @@ class User implements AdvancedUserInterface
      * @Assert\Type(type="string")
      * @JMS\Exclude
      */
-    private $salt;
+    protected $salt;
 
     /**
      * @var boolean
@@ -75,8 +78,7 @@ class User implements AdvancedUserInterface
      * @JMS\Exclude
      * @JMS\Type("boolean")
      */
-    private $enabled = false;
-
+    protected $enabled = false;
 
     /**
      * Constructor
@@ -84,6 +86,8 @@ class User implements AdvancedUserInterface
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
+        $this->updatedAt = new DateTime();
+        $this->createdAt = new DateTime();
     }
 
     /**
@@ -93,7 +97,6 @@ class User implements AdvancedUserInterface
     {
         return $this->getEmail();
     }
-
 
     /**
      * @param  string $password
@@ -106,14 +109,34 @@ class User implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
     /**
-     * Set lastLogin
-     *
+     * @param  string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
      * @param  \DateTime $lastLogin
      * @return User
      */
@@ -125,8 +148,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set enabled
-     *
      * @param  boolean $enabled
      * @return User
      */
@@ -138,23 +159,11 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Get enabled
-     *
      * @return boolean
      */
     public function getEnabled()
     {
         return $this->enabled;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
@@ -202,9 +211,7 @@ class User implements AdvancedUserInterface
      */
     public function getSalt()
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
+        return $this->salt;
     }
 
     /**
@@ -219,6 +226,7 @@ class User implements AdvancedUserInterface
 
         return $this;
     }
+
 
     /**
      * @return string
