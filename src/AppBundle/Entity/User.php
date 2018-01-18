@@ -30,7 +30,9 @@ class User implements AdvancedUserInterface
     use UpdateCreateTrait;
 
     /**
-     * @var string
+     * @JMS\Expose
+     * @JMS\Type("string")
+     * @JMS\Groups({"collection","details"})
      * @ORM\Column(type="string", length=255)
      */
     private $username;

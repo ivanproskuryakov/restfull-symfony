@@ -75,41 +75,6 @@ class UserControllerTest extends AbstractWebTestCase
         $this->removeEntity($user);
     }
 
-    public function testLoginUserActionFailNotEnabled()
-    {
-        $data = [
-            'email' => $this->faker->email,
-            'password' => $this->faker->numberBetween(),
-        ];
-        $userData = $data;
-        $userData['enabled'] = false;
-
-        $user = $this->newUserPersistent(
-            $data['email'],
-            $data['password']
-        );
-
-        $this->client->request(
-            'POST',
-            $this->generateRoute('app_user_login'),
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
-            json_encode($data)
-        );
-
-        $response = $this->client->getResponse();
-        $content = $response->getContent();
-        $statusCode = $response->getStatusCode();
-        $result = json_decode($content, true);
-
-        $this->assertEquals(422, $statusCode);
-        $this->assertEquals('A user with such Email doesn\'t exists', $result['message']);
-        $this->removeEntity($user);
-    }
-
     public function testPostUserActionFailUserAgreement()
     {
         $data = [
@@ -137,37 +102,6 @@ class UserControllerTest extends AbstractWebTestCase
 
         $this->assertEquals(400, $statusCode);
         $this->assertEquals('Terms of use must be accepted.', $result['message']);
-    }
-
-    public function testPostUserActionFailShortPassword()
-    {
-        $data = [
-            'email' => $this->faker->email,
-            'name' => $this->faker->name,
-            'username' => $this->faker->userName,
-            'plainPassword' => '123'
-        ];
-
-        $this->client->request(
-            'POST',
-            $this->generateRoute('app_user_post'),
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
-            json_encode($data)
-        );
-
-        $response = $this->client->getResponse();
-        $content = $response->getContent();
-        $statusCode = $response->getStatusCode();
-        $result = json_decode($content, true);
-
-
-        $this->assertEquals(400, $statusCode);
-        $this->assertEquals(1, count($result['errors']));
-        $this->assertEquals('Your password is too short.', $result['errors']['plainPassword']);
     }
 
     public function testPostUserActionFailDuplicatedEmail()
