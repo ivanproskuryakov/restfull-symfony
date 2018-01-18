@@ -183,7 +183,6 @@ class User implements AdvancedUserInterface
         return $this;
     }
 
-
     /**
      * Get email
      *
@@ -231,13 +230,12 @@ class User implements AdvancedUserInterface
         return $this;
     }
 
-
     /**
-     * @return string
+     * @return array
      */
     public function getRoles()
     {
-        return array($this->roles);
+        return array(self::ROLE_USER);
     }
 
     /**
