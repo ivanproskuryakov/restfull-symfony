@@ -13,6 +13,7 @@ trait IdTrait
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\ReadOnly
      * @JMS\Type("integer")
      * @JMS\Groups({"collection","details"})
      */

@@ -12,6 +12,7 @@ trait UpdateCreateTrait
      * @var \DateTime
      * @ORM\Column(type="datetime")
      * @JMS\Expose
+     * @JMS\ReadOnly
      * @JMS\Type("DateTime")
      * @JMS\Groups({"collection","details"})
      */
@@ -21,6 +22,7 @@ trait UpdateCreateTrait
      * @var \DateTime
      * @ORM\Column(type="datetime")
      * @JMS\Expose
+     * @JMS\ReadOnly
      * @JMS\Type("DateTime")
      * @JMS\Groups({"collection","details"})
      */

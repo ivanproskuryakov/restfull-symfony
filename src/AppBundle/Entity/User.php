@@ -7,7 +7,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
-
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
