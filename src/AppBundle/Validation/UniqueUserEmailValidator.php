@@ -30,10 +30,8 @@ class UniqueUserEmailValidator extends ConstraintValidator
         if (null === $value) {
             return;
         }
-        $user = $this->userService->findOneBy([
-            'email' => $value,
-            'deletedAt' => null,
-        ]);
+
+        $user = $this->userService->loadUserByEmail($value);
 
         if ($user) {
             $this->context

@@ -27,7 +27,6 @@
         "fzaninotto/faker": "^1.7",
         "incenteev/composer-parameter-handler": "^2.0",
         "jms/serializer-bundle": "^2.0",
-
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/phpunit-bridge": "^4.0",
         "symfony/polyfill-apcu": "^1.0",

@@ -37,7 +37,7 @@ class UserController extends ApiControllerTemplate
      */
     protected function postPreProcessor()
     {
-        $request = $this->get('request');
+        $request = $this->get('request_stack')->getCurrentRequest();
 
         if (!$request->headers->get('x-user-agreement')) {
             throw new BadRequestHttpException('Terms of use must be accepted.');

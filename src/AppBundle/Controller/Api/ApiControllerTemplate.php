@@ -86,7 +86,7 @@ abstract class ApiControllerTemplate extends Controller
      */
     private function persistEntity(Request $request)
     {
-        $entity = $this->get('serializer')->deserialize(
+        $entity = $this->get('jms_serializer')->deserialize(
             $request->getContent(),
             $this->model,
             'json'

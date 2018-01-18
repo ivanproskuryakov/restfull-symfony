@@ -3,12 +3,15 @@
 namespace AppBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 use AppBundle\Entity\User;
 
@@ -17,220 +20,82 @@ class UserService implements UserProviderInterface
     /**
      * @var EncoderFactory
      */
-    protected $encoder;
+    private $encoder;
+    /**
+     * @var Session
+     */
+    private $session;
     /**
      * @var TokenStorage
      */
-    protected $tokenStorage;
+    private $tokenStorage;
     /**
      * @var EntityManager
      */
-    protected $em;
+    private $em;
 
     /**
+     * @param Session $session
      * @param EntityManager $entityManager
      * @param EncoderFactory $encoder
      * @param TokenStorage $tokenStorage
      */
     public function __construct(
+        Session $session,
         EntityManager $entityManager,
         EncoderFactory $encoder,
         TokenStorage $tokenStorage
-    ) {
+    )
+    {
+        $this->session = $session;
         $this->encoder = $encoder;
         $this->em = $entityManager;
         $this->tokenStorage = $tokenStorage;
     }
 
     /**
-     * @param int $userId
-     * @return User $currentUser
+     * @param $email string
+     * @param $password string
+     * @throws UnprocessableEntityHttpException
      */
-    public function getUser($userId = null)
+    public function login($email, $password)
     {
-        if ($userId) return $this->loadById($userId);
+        $user = $this->loadUserByEmail($email);
 
-        $userToken = $this->tokenStorage->getToken();
-        if ($userToken) {
-            $user = $userToken->getUser();
-
-            if ($user !== 'anon.') {
-                $roles = $user->getRoles();
-
-                if (in_array(User::ROLE_USER, $roles)) return $user;
-            }
+        if (false === ($user instanceof User)) {
+            throw new UnprocessableEntityHttpException('A user with such Email doesn\'t exists');
         }
 
-        return false;
-    }
-
-    /**
-     * authenticatedUser
-     *
-     * @return User|boolean
-     */
-    public function getAuthenticatedUser()
-    {
-        $userToken = $this->tokenStorage->getToken();
-
-        if ($userToken) {
-            /** @var User $user */
-            $user = $userToken->getUser();
-
-            if ($user !== 'anon.') {
-                $role = $user->getRoles()[0];
-                $rolesAvailable = [User::ROLE_USER, User::ROLE_ADMIN];
-
-                if (in_array($role, $rolesAvailable)) {
-                    return $user;
-                }
-            }
-        }
-    }
-
-    /**
-     * Is user password correct
-     *
-     * @param User $user
-     * @param string $password
-     *
-     * @return boolean $isValid
-     */
-    public function checkUserPassword(User $user, $password)
-    {
-        $encoder = $this->encoder->getEncoder($user);
-
-        if (!$encoder) {
-            return false;
-        }
-        $isValid = $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
-
-        return $isValid;
-    }
-
-    /**
-     * registerFixturesUser
-     *
-     * @param array $userData
-     *
-     * @return User $user
-     */
-    public function registerFixturesUser(array $userData)
-    {
-        $user = new User();
-        $user->setEmail($userData['email']);
-        $user->setPlainPassword($userData['password']);
-
-        $user->setEnabled($userData['enabled']);
-        $user->setLocked($userData['locked']);
-        $user->setLastLogin(new \DateTime(date('Y-m-d H:i:s')));
-        $user->setPhone($userData['phone']);
-        $user->setWebsite($userData['website']);
-        $user->setFacebook($userData['facebook']);
-        $user->setTwitter($userData['twitter']);
-        $user->setAbout($userData['about']);
-
-        $this->em->persist($user);
-        $this->em->flush();
-
-        // Update User role
-        $user->setRoles($userData['roles']);
-        $this->em->persist($user);
-        $this->em->flush();
-
-        return $user;
-    }
-
-    /**
-     * Update User details
-     *
-     * @param array $userData
-     *
-     * @return string $message
-     */
-    public function updateDetailsForUser(array $userData)
-    {
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if (isset($userData['phone'])) $user->setPhone($userData['phone']);
-        if (isset($userData['website'])) $user->setWebsite($userData['website']);
-        if (isset($userData['about'])) $user->setAbout($userData['about']);
-        if (isset($userData['facebook'])) $user->setFacebook($userData['facebook']);
-        if (isset($userData['twitter'])) $user->setTwitter($userData['twitter']);
-
-        $this->em->persist($user);
-        $this->em->flush();
-    }
-
-    /**
-     * registerUser
-     *
-     * @param array $userData
-     * @return mixed
-     */
-    public function registerUser(array $userData)
-    {
-        $user = $this->loadUserByEmail($userData['email']);
-
-        if (!$user) {
-            $user = new User();
-            $user->setEmail($userData['email']);
-            $user->setPlainPassword($userData['password']);
-            $user->setEnabled(true);
-            $user->setLocked(false);
-
-            $this->em->persist($user);
-            $this->em->flush();
-            $this->mailer->sendRegisterUserMail($user, $userData['password']);
+        if (false === $this->checkUserPassword($user, $password)) {
+            throw new UnprocessableEntityHttpException('The credentials are wrong');
         }
 
-        return $user;
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $this->tokenStorage->setToken($token);
+        $this->session->set('_security_main', serialize($token));
     }
 
     /**
-     * resetPassword
-     *
-     * @param User $user
-     * @return mixed
+     * @param string $username
+     * @return User|null
      */
-    public function resetPassword(User $user)
+    public function loadUserByUsername($username)
     {
-        if ($user) {
-            $utility = new PasswordUtility();
-            $password = $utility->generatePassword();
-
-            $user->setPlainPassword($password);
-            $user->setPassword($password);
-
-            $this->em->persist($user);
-            $this->em->flush();
-
-            $this->mailer->sendNewPasswordEmail($user, $password);
-        }
+        return $this->loadUserByEmail($username);
     }
 
     /**
-     * loadUserByEmail
-     *
      * @param string $email
-     * @return User|null|object
+     * @return User|null
      */
-    public function loadUserByEmail($email)
+    public function loadUserByEmail(string $email)
     {
-        return $this->loadUserByUsername($email);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function loadUserByUsername($email)
-    {
-        $user = $this
-            ->em
-            ->getRepository(User::class)
-            ->findOneBy(array('email' => $email));
-
-        return $user;
+        return $this->em
+            ->getRepository('AppBundle:User')
+            ->findOneBy([
+                'email' => $email,
+                'enabled' => true
+            ]);
     }
 
     /**
@@ -262,9 +127,25 @@ class UserService implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        $name = 'Aisel\UserBundle\Entity\User';
+        $name = 'AppBundle\Entity\User';
 
         return $name === $class || is_subclass_of($class, $name);
+    }
+
+    /**
+     * @param User $user
+     * @param string $password
+     * @return boolean $isValid
+     */
+    private function checkUserPassword(User $user, $password)
+    {
+        return $this->encoder
+            ->getEncoder($user)
+            ->isPasswordValid(
+                $user->getPassword(),
+                $password,
+                $user->getSalt()
+            );
     }
 
 }

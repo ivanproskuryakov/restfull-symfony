@@ -1,3 +1,3 @@
-rpg:
+user:
     prefix:   /user
     resource: "@AppBundle/Resources/config/routing/api/user.yml"

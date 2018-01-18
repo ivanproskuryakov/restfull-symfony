@@ -11,7 +11,10 @@ class UserTest extends AbstractTestCase
 
     public function testUserPersist()
     {
-        $user = $this->newUserPersistent();
+        $user = $this->newUserPersistent(
+            $this->faker->email,
+            $this->faker->numberBetween()
+        );
 
         $this->assertNotEmpty($user->getId());
 

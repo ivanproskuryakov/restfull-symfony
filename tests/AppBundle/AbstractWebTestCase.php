@@ -93,15 +93,4 @@ abstract class AbstractWebTestCase extends AbstractTestCase
         $this->client->getCookieJar()->set($cookie);
     }
 
-    /**
-     * @return string
-     */
-    protected function getCsrfToken()
-    {
-        return $this
-            ->getContainer()
-            ->get('dunglas_angular_csrf.token_manager')
-            ->getToken()
-            ->getValue();
-    }
 }

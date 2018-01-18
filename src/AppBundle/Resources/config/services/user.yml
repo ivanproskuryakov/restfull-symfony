@@ -2,6 +2,7 @@ services:
     app_user.service:
         class: AppBundle\Service\UserService
         arguments:
+            - "@session"
             - "@doctrine.orm.entity_manager"
             - "@security.encoder_factory"
             - "@security.token_storage"
@@ -14,10 +15,17 @@ services:
             - { name: validator.constraint_validator, alias: unique_user_email }
 
 
-    aisel_frontend_user_persistence_listener:
+    app_user.persistence.listener:
         class: AppBundle\EventListener\UserPersistenceListener
         arguments:
             - "@security.encoder_factory"
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+
+    app_exception_listener:
+        class: AppBundle\Listener\ApiExceptionListener
+        arguments:
+        tags:
+            - { name: "kernel.event_listener", event: "kernel.exception", method: "onKernelException" }
+

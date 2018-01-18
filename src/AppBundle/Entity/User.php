@@ -12,6 +12,7 @@ use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
 use AppBundle\Entity\Traits\UpdateCreateTrait;
+use AppBundle\Validation\Constraint as AppValidation;
 
 /**
  * @JMS\ExclusionPolicy("all")
@@ -39,6 +40,7 @@ class User implements AdvancedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull()
      * @Assert\Email
+     * @AppValidation\UniqueUserEmail
      * @JMS\Expose
      * @JMS\Type("string")
      * @JMS\Groups({"collection","details"})

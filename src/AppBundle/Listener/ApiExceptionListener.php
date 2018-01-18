@@ -16,32 +16,12 @@ class ApiExceptionListener {
 
     /**
      * @param GetResponseForExceptionEvent $event
-     * @return string
-     */
-    private function getRequestType(GetResponseForExceptionEvent $event)
-    {
-        $contentType = $event
-            ->getRequest()
-            ->headers
-            ->get('Content-Type');
-
-        if (preg_match('/application\/json/', $contentType)) {
-            return 'api';
-        }
-
-        return 'web';
-    }
-
-    /**
-     * @param GetResponseForExceptionEvent $event
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        $response = $this->exceptionEventProcessor($event);
-
-        if ($this->getRequestType($event) === 'api') {
-            $event->setResponse($response);
-        }
+        $event->setResponse(
+            $this->exceptionEventProcessor($event)
+        );
     }
 
     /**

@@ -15,10 +15,10 @@ class UserControllerTest extends AbstractWebTestCase
             'email' => $this->faker->email,
             'password' => $this->faker->numberBetween(),
         ];
-
-        $user = $this->newUser($data);
-        $this->em->persist($user);
-        $this->em->flush($user);
+        $user = $this->newUserPersistent(
+            $data['email'],
+            $data['password']
+        );
 
         $this->client->request(
             'POST',
@@ -26,8 +26,7 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
-                'CONTENT_TYPE' => 'application/json',
+                'CONTENT_TYPE' => 'application/json'
             ],
             json_encode($data)
         );
@@ -50,9 +49,10 @@ class UserControllerTest extends AbstractWebTestCase
             'password' => 'wrong!',
         ];
 
-        $user = $this->newUser($data);
-        $this->em->persist($user);
-        $this->em->flush($user);
+        $user = $this->newUserPersistent(
+            $data['email'],
+            $data['password']
+        );
 
         $this->client->request(
             'POST',
@@ -60,7 +60,6 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
                 'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($wrongData)
@@ -85,9 +84,10 @@ class UserControllerTest extends AbstractWebTestCase
         $userData = $data;
         $userData['enabled'] = false;
 
-        $user = $this->newUser($userData);
-        $this->em->persist($user);
-        $this->em->flush($user);
+        $user = $this->newUserPersistent(
+            $data['email'],
+            $data['password']
+        );
 
         $this->client->request(
             'POST',
@@ -95,7 +95,6 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
                 'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($data)
@@ -126,7 +125,6 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
                 'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($data)
@@ -156,8 +154,6 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-USER-AGREEMENT' => $this->getCsrfToken(),
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
                 'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($data)
@@ -176,13 +172,17 @@ class UserControllerTest extends AbstractWebTestCase
 
     public function testPostUserActionFailDuplicatedEmail()
     {
-        $user = $this->newUserPersistent();
         $data = [
-            'email' => $user->getEmail(),
+            'email' => $this->faker->email,
             'name' => $this->faker->name,
             'username' => $this->faker->userName,
             'plainPassword' => 'password',
         ];
+
+        $user = $this->newUserPersistent(
+            $data['email'],
+            $data['plainPassword']
+        );
 
         $this->client->request(
             'POST',
@@ -190,8 +190,7 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-USER-AGREEMENT' => $this->getCsrfToken(),
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
+                'HTTP_X-USER-AGREEMENT' => 1,
                 'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($data)
@@ -223,8 +222,7 @@ class UserControllerTest extends AbstractWebTestCase
             [],
             [],
             [
-                'HTTP_X-USER-AGREEMENT' => $this->getCsrfToken(),
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
+                'HTTP_X-USER-AGREEMENT' => 1,
                 'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($data)
@@ -242,17 +240,26 @@ class UserControllerTest extends AbstractWebTestCase
 
     public function testGetActionSuccess()
     {
-        $user = $this->newUserPersistent();
+        $data = [
+            'email' => $this->faker->email,
+            'name' => $this->faker->name,
+            'username' => $this->faker->userName,
+            'plainPassword' => 'password',
+        ];
+
+        $user = $this->newUserPersistent(
+            $data['email'],
+            $data['plainPassword']
+        );
 
         $this->client->request(
             'GET',
-            $this->generateRoute('app_user_get',[
+            $this->generateRoute('app_user_get', [
                 'id' => $user->getId()
             ]),
             [],
             [],
             [
-                'HTTP_X-XSRF-TOKEN' => $this->getCsrfToken(),
                 'CONTENT_TYPE' => 'application/json',
             ]
         );

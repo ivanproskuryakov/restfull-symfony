@@ -2,43 +2,39 @@
 
 namespace Tests\Traits;
 
-use Faker;
 use AppBundle\Entity\User;
 
 trait UserTrait
 {
 
     /**
+     * @param string $email
+     * @param string $password
      * @return User
      */
-    public function newUser()
+    public function newUser(string $email, string $password)
     {
-        $faker = $this->getFaker();
-
         $user = new User();
-        $user->setUsername($faker->userName);
-        $user->setEmail($faker->email);
-        $user->setPlainPassword($faker->password);
+        $user->setUsername($email);
+        $user->setEmail($email);
+        $user->setPlainPassword($password);
         $user->setEnabled(true);
 
         return $user;
     }
 
     /**
+     * @param string $email
+     * @param string $password
      * @return User
      */
-    protected function newUserPersistent()
+    protected function newUserPersistent(string $email, string $password)
     {
-        $user = $this->newUser();
+        $user = $this->newUser($email, $password);
 
         $this->em->persist($user);
         $this->em->flush($user);
 
         return $user;
     }
-
-    /**
-     * @return Faker\Generator
-     */
-    abstract protected function getFaker();
 }
