@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as JMS;
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
-use AppBundle\Entity\Traits\UpdateCreateTrait;
+use AppBundle\Entity\Traits\CreatedAtTrait;
 use AppBundle\Validation\Constraint as AppValidation;
 
 /**
@@ -26,7 +26,15 @@ class User implements AdvancedUserInterface
     const ROLE_USER = 'ROLE_USER';
 
     use IdTrait;
-    use UpdateCreateTrait;
+    use CreatedAtTrait;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("integer")
+     * @JMS\Groups({"collection","details"})
+     * @ORM\Column(type="integer")
+     */
+    private $experience = 0;
 
     /**
      * @JMS\Expose
@@ -55,14 +63,14 @@ class User implements AdvancedUserInterface
      * @JMS\Expose
      * @JMS\Type("string")
      */
-    protected $plainPassword;
+    private $plainPassword;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
      * @JMS\Exclude
      */
-    protected $password;
+    private $password;
 
     /**
      * @var string
@@ -70,7 +78,7 @@ class User implements AdvancedUserInterface
      * @Assert\Type(type="string")
      * @JMS\Exclude
      */
-    protected $salt;
+    private $salt;
 
     /**
      * @var boolean
@@ -81,7 +89,7 @@ class User implements AdvancedUserInterface
      * @JMS\Exclude
      * @JMS\Type("boolean")
      */
-    protected $enabled = false;
+    private $enabled = false;
 
     /**
      * Constructor
@@ -89,7 +97,6 @@ class User implements AdvancedUserInterface
     public function __construct()
     {
         $this->salt = md5(uniqid(null, true));
-        $this->updatedAt = new DateTime();
         $this->createdAt = new DateTime();
     }
 

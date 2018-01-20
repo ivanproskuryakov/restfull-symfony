@@ -45,8 +45,7 @@ class UserService implements UserProviderInterface
         EntityManager $entityManager,
         EncoderFactory $encoder,
         TokenStorage $tokenStorage
-    )
-    {
+    ) {
         $this->session = $session;
         $this->encoder = $encoder;
         $this->em = $entityManager;

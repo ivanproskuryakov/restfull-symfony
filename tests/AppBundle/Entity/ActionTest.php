@@ -2,14 +2,14 @@
 
 namespace Test\AppBundle\Entity\Social\Integration;
 
-use AppBundle\Entity\Challenge;
+use AppBundle\Entity\Action;
 use Tests\AppBundle\AbstractTestCase;
 use Tests\Traits\UserTrait;
 
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 
-class ChallengeTest extends AbstractTestCase
+class ActionTest extends AbstractTestCase
 {
     use UserTrait;
 
