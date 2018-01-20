@@ -48,7 +48,7 @@ class Terrain
 
     /**
      * @var User
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Mob")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Mob", cascade={"persist", "remove"})
      * @JMS\Type("ArrayCollection<AppBundle\Entity\Mob>")
      * @JMS\Groups({"collection","details"})
      */

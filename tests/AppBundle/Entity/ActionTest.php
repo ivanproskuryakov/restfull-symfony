@@ -1,42 +1,36 @@
 <?php
 
-namespace Test\AppBundle\Entity\Social\Integration;
+namespace Test\AppBundle\Entity;
 
-use AppBundle\Entity\Action;
 use Tests\AppBundle\AbstractTestCase;
+use Tests\Traits\MobTrait;
+use Tests\Traits\TerrainTrait;
+use Tests\Traits\ActionTrait;
 use Tests\Traits\UserTrait;
-
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 
 class ActionTest extends AbstractTestCase
 {
+    use ActionTrait;
     use UserTrait;
+    use MobTrait;
+    use TerrainTrait;
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function testChallengePersist()
+    public function testMobPersist()
     {
-        $challenger = $this->newUserPersistent(
+        $mob = $this->newMob();
+        $terrain = $this->newTerrainPersistent($mob);
+        $user = $this->newUserPersistent(
             $this->faker->email,
             $this->faker->numberBetween()
         );
-        $challengeable = $this->newUserPersistent(
-            $this->faker->email,
-            $this->faker->numberBetween()
-        );
 
-        $challenge = new Challenge();
-        $challenge->setChallenger($challenger);
-        $challenge->setChallengeable($challengeable);
-        $challenge->setStatus(Challenge::STATUS_STARTED);
+        $action = $this->newActionPersistent($user, $terrain);
 
-        $this->em->persist($challenge);
-        $this->em->flush($challenge);
+        $this->assertNotEmpty($action->getId());
 
-        $this->removeEntity($challenge);
+        $this->removeEntity($action);
+        $this->removeEntity($terrain);
+        $this->removeEntity($user);
     }
 
 

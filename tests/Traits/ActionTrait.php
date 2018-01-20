@@ -2,39 +2,39 @@
 
 namespace Tests\Traits;
 
+use AppBundle\Entity\Action;
+use AppBundle\Entity\Terrain;
 use AppBundle\Entity\User;
 
 trait ActionTrait
 {
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return User
+     * @param User $user
+     * @param Terrain $terrain
+     * @return Action
      */
-    public function newUser(string $email, string $password)
+    public function newAction(User $user, Terrain $terrain)
     {
-        $user = new User();
-        $user->setUsername($email);
-        $user->setEmail($email);
-        $user->setPlainPassword($password);
-        $user->setEnabled(true);
+        $action = new Action();
+        $action->setUser($user);
+        $action->setTerrain($terrain);
 
-        return $user;
+        return $action;
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return User
+     * @param User $user
+     * @param Terrain $terrain
+     * @return Action
      */
-    protected function newUserPersistent(string $email, string $password)
+    protected function newActionPersistent(User $user, Terrain $terrain)
     {
-        $user = $this->newUser($email, $password);
+        $action = $this->newAction($user, $terrain);
 
-        $this->em->persist($user);
-        $this->em->flush($user);
+        $this->em->persist($action);
+        $this->em->flush($action);
 
-        return $user;
+        return $action;
     }
 }

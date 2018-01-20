@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\AppBundle\Entity\Social\Integration;
+namespace Test\AppBundle\Entity;
 
 use Tests\AppBundle\AbstractTestCase;
 use Tests\Traits\TerrainTrait;
@@ -11,7 +11,8 @@ class TerrainTest extends AbstractTestCase
 
     public function testMobPersist()
     {
-        $terrain = $this->newTerrainPersistent();
+        $mob = $this->newMob();
+        $terrain = $this->newTerrainPersistent($mob);
 
         $this->assertNotEmpty($terrain->getId());
 

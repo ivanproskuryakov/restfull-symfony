@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\AppBundle\Entity\Social\Integration;
+namespace Test\AppBundle\Entity;
 
 use Tests\AppBundle\AbstractTestCase;
 use Tests\Traits\UserTrait;

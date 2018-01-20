@@ -3,27 +3,28 @@
 namespace Tests\Traits;
 
 use AppBundle\Entity\Terrain;
+use AppBundle\Entity\Mob;
 
 trait TerrainTrait
 {
-    use MobTrait;
-
     /**
+     * @param Mob $mob
      * @return Terrain
      */
-    protected function newTerrain()
+    protected function newTerrain(Mob $mob)
     {
-        $user = new Terrain(1,1, $this->newMob());
+        $user = new Terrain(1,1, $mob);
 
         return $user;
     }
 
     /**
+     * @param Mob $mob
      * @return Terrain
      */
-    protected function newTerrainPersistent()
+    protected function newTerrainPersistent(Mob $mob)
     {
-        $terrain = $this->newTerrain();
+        $terrain = $this->newTerrain($mob);
 
         $this->em->persist($terrain);
         $this->em->flush($terrain);
