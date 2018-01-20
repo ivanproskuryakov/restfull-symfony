@@ -1,0 +1,5 @@
+services:
+    app_terrain.service:
+        class: AppBundle\Service\TerrainService
+        arguments:
+            - "@doctrine.orm.entity_manager"

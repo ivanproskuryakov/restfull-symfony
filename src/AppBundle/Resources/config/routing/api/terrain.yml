@@ -1,0 +1,9 @@
+app_terrain_get_collection:
+    path: /
+    defaults: { _controller: AppBundle:Api/Terrain:getCollection }
+    methods:  [GET]
+
+app_terrain_get:
+    path: /{id}
+    defaults: { _controller: AppBundle:Api/Terrain:get }
+    methods:  [GET]

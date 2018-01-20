@@ -3,6 +3,7 @@ imports:
     - { resource: config/doctrine.yml }
     - { resource: security.yml }
     - { resource: "@AppBundle/Resources/config/services/user.yml" }
+    - { resource: "@AppBundle/Resources/config/services/terrain.yml" }
 
 framework:
     secret: '%secret%'
@@ -16,7 +17,6 @@ framework:
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
-        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
         save_path: "%env(SESSION_DIR)%"
     fragments: ~

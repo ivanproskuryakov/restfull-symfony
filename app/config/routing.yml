@@ -1,3 +1,12 @@
 user:
     prefix:   /user
     resource: "@AppBundle/Resources/config/routing/api/user.yml"
+action:
+    prefix:   /action
+    resource: "@AppBundle/Resources/config/routing/api/action.yml"
+mob:
+    prefix:   /mob
+    resource: "@AppBundle/Resources/config/routing/api/mob.yml"
+terrain:
+    prefix:   /terrain
+    resource: "@AppBundle/Resources/config/routing/api/terrain.yml"

@@ -75,6 +75,27 @@ abstract class ApiControllerTemplate extends Controller
     /**
      * @return mixed
      */
+    final public function getCollectionAction()
+    {
+        $collection = $this->get('doctrine.orm.entity_manager')
+            ->getRepository($this->model)
+            ->findAll();
+
+        $serializedCollection = $this
+            ->container
+            ->get('jms_serializer')
+            ->serialize(
+                $collection,
+                'json',
+                SerializationContext::create()->enableMaxDepthChecks()
+            );
+
+        return new Response($serializedCollection);
+    }
+
+    /**
+     * @return mixed
+     */
     protected function postPreProcessor()
     {
         // Empty by default

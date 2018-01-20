@@ -11,6 +11,7 @@ use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
 use AppBundle\Entity\Traits\CreatedAtTrait;
+use AppBundle\Entity\Traits\UpdateAtTrait;
 use AppBundle\Validation\Constraint as AppValidation;
 
 /**
@@ -27,6 +28,7 @@ class User implements AdvancedUserInterface
 
     use IdTrait;
     use CreatedAtTrait;
+    use UpdateAtTrait;
 
     /**
      * @JMS\Expose
@@ -98,6 +100,7 @@ class User implements AdvancedUserInterface
     {
         $this->salt = md5(uniqid(null, true));
         $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     /**

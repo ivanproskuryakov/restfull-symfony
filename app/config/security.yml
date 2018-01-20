@@ -16,3 +16,10 @@ security:
             anonymous:           true
 
     access_control:
+        # API:user
+        - { path: ^/api/user/settings, role: [ROLE_USER] }
+        - { path: ^/api/user/login, allow_if: "is_anonymous() and !is_authenticated()" }
+        - { path: ^/api/user/, allow_if: "is_anonymous() and !is_authenticated()" }
+
+        # API:other
+        - { path: ^/api/, role: [ROLE_USER] }

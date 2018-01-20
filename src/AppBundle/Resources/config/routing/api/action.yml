@@ -1,0 +1,4 @@
+app_action_post:
+    path: /{id}
+    defaults: { _controller: AppBundle:Api/Action:post }
+    methods:  [POST]

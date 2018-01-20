@@ -1,0 +1,9 @@
+app_mob_get_collection:
+    path: /
+    defaults: { _controller: AppBundle:Api/Mob:getCollection }
+    methods:  [GET]
+
+app_mob_get:
+    path: /{id}
+    defaults: { _controller: AppBundle:Api/Mob:get }
+    methods:  [GET]
