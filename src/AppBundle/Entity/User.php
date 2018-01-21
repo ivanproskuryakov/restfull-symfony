@@ -32,14 +32,6 @@ class User implements AdvancedUserInterface
 
     /**
      * @JMS\Expose
-     * @JMS\Type("integer")
-     * @JMS\Groups({"collection","details"})
-     * @ORM\Column(type="integer")
-     */
-    private $experience = 0;
-
-    /**
-     * @JMS\Expose
      * @JMS\Type("string")
      * @JMS\Groups({"collection","details"})
      * @ORM\Column(type="string", length=255)

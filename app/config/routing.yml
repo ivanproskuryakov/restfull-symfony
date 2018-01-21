@@ -10,3 +10,6 @@ mob:
 terrain:
     prefix:   /terrain
     resource: "@AppBundle/Resources/config/routing/api/terrain.yml"
+character:
+    prefix:   /character
+    resource: "@AppBundle/Resources/config/routing/api/character.yml"

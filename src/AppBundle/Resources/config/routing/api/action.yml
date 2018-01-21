@@ -3,7 +3,6 @@ app_action_post:
     defaults: { _controller: AppBundle:Api/Action:post }
     methods:  [POST]
 
-
 app_action_get:
     path: /{id}
     defaults: { _controller: AppBundle:Api/Action:get }
