@@ -69,7 +69,7 @@ class TerrainControllerTest extends AbstractWebTestCase
         $result = json_decode($content, true);
 
         $this->assertEquals(200, $statusCode);
-        $this->assertNotEmpty();
+        $this->assertNotEmpty($result);
 
         $this->removeEntity($terrain);
     }

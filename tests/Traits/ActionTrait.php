@@ -3,7 +3,7 @@
 namespace Tests\Traits;
 
 use AppBundle\Entity\Action;
-use AppBundle\Entity\Terrain;
+use AppBundle\Entity\Mob;
 use AppBundle\Entity\User;
 
 trait ActionTrait
@@ -11,26 +11,26 @@ trait ActionTrait
 
     /**
      * @param User $user
-     * @param Terrain $terrain
+     * @param Mob $mob
      * @return Action
      */
-    public function newAction(User $user, Terrain $terrain)
+    public function newAction(User $user, Mob $mob)
     {
         $action = new Action();
         $action->setUser($user);
-        $action->setTerrain($terrain);
+        $action->setMob($mob);
 
         return $action;
     }
 
     /**
      * @param User $user
-     * @param Terrain $terrain
+     * @param Mob $mob
      * @return Action
      */
-    protected function newActionPersistent(User $user, Terrain $terrain)
+    protected function newActionPersistent(User $user, Mob $mob)
     {
-        $action = $this->newAction($user, $terrain);
+        $action = $this->newAction($user, $mob);
 
         $this->em->persist($action);
         $this->em->flush($action);

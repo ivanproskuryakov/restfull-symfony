@@ -17,23 +17,18 @@ class ActionTest extends AbstractTestCase
 
     public function testMobPersist()
     {
-        $mob = $this->newMob();
-        $terrain = $this->newTerrainPersistent(
-            $this->faker->randomDigit,
-            $this->faker->randomDigit,
-            $mob
-        );
+        $mob = $this->newMobPersistent();
         $user = $this->newUserPersistent(
             $this->faker->email,
             $this->faker->numberBetween()
         );
 
-        $action = $this->newActionPersistent($user, $terrain);
+        $action = $this->newActionPersistent($user, $mob);
 
         $this->assertNotEmpty($action->getId());
 
         $this->removeEntity($action);
-        $this->removeEntity($terrain);
+        $this->removeEntity($mob);
         $this->removeEntity($user);
     }
 
