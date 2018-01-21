@@ -10,5 +10,4 @@ class TerrainController extends ApiControllerTemplate
      * @var string
      */
     protected $model = Terrain::class;
-
 }

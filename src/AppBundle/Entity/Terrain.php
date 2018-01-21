@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use JMS\Serializer\Annotation as JMS;
@@ -12,6 +11,7 @@ use AppBundle\Entity\Traits\IdTrait;
 use AppBundle\Entity\Traits\CreatedAtTrait;
 use AppBundle\Entity\Traits\UpdateAtTrait;
 use AppBundle\Validation\Constraint as AppValidation;
+
 /**
  * @JMS\ExclusionPolicy("all")
  * @ORM\HasLifecycleCallbacks()
@@ -99,5 +99,4 @@ class Terrain
     {
         return $this->mob;
     }
-
 }

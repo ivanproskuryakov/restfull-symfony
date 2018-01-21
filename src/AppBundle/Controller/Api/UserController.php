@@ -43,5 +43,4 @@ class UserController extends ApiControllerTemplate
             throw new BadRequestHttpException('Terms of use must be accepted.');
         }
     }
-
 }

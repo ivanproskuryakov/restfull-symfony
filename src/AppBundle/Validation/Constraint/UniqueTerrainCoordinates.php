@@ -17,12 +17,12 @@ class UniqueTerrainCoordinates extends Constraint
     /**
      * @return string
      */
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'unique_terrain_coordinates';
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return Constraint::CLASS_CONSTRAINT;
     }

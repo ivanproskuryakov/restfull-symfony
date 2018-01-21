@@ -25,5 +25,4 @@ trait CreatedAtTrait
     {
         return $this->createdAt;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Listener;
+namespace AppBundle\EventListener;
 
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,7 +12,8 @@ use Symfony\Component\Validator\ConstraintViolation;
 
 use AppBundle\Exception\ValidationFailedException;
 
-class ApiExceptionListener {
+class ApiExceptionListener
+{
 
     /**
      * @param GetResponseForExceptionEvent $event
@@ -142,7 +143,6 @@ class ApiExceptionListener {
      */
     private function responseException(Exception $exception)
     {
-
         if (method_exists($exception, 'getStatusCode')) {
             $code = $exception->getStatusCode();
         } else {
@@ -165,5 +165,4 @@ class ApiExceptionListener {
             $exception->getMessage()
         );
     }
-
 }

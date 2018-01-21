@@ -10,5 +10,4 @@ class CharacterController extends ApiControllerTemplate
      * @var string
      */
     protected $model = Character::class;
-
 }

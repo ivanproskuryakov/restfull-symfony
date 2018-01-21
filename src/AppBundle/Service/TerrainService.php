@@ -22,6 +22,10 @@ class TerrainService
         $this->em = $entityManager;
     }
 
+    /**
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function generateTerrain()
     {
         for ($x = 0; $x < Terrain::SIZE_X; $x++) {
@@ -37,5 +41,4 @@ class TerrainService
 
         $this->em->flush();
     }
-
 }

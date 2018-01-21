@@ -10,5 +10,4 @@ class MobController extends ApiControllerTemplate
      * @var string
      */
     protected $model = Mob::class;
-
 }

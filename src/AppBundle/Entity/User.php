@@ -23,7 +23,6 @@ use AppBundle\Validation\Constraint as AppValidation;
  */
 class User implements AdvancedUserInterface
 {
-
     const ROLE_USER = 'ROLE_USER';
 
     use IdTrait;
@@ -272,7 +271,7 @@ class User implements AdvancedUserInterface
      */
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->email,
             $this->password,

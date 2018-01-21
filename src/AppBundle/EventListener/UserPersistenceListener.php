@@ -50,7 +50,6 @@ class UserPersistenceListener
         $object = $args->getEntity();
 
         if ($object instanceof AdvancedUserInterface) {
-
             $encodedPassword = $this
                 ->encoder
                 ->getEncoder($object)
@@ -78,6 +77,4 @@ class UserPersistenceListener
             $object->setRoles(User::ROLE_USER);
         }
     }
-
-
 }

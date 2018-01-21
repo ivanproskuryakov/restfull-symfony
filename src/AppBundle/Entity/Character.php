@@ -104,5 +104,4 @@ class Character
     {
         $this->experience = $experience;
     }
-
 }
