@@ -15,8 +15,8 @@ class TerrainTest extends AbstractTestCase
     {
         $mob = $this->newMob();
         $terrain = $this->newTerrainPersistent(
-            $this->faker->randomNumber(1, 9999999),
-            $this->faker->randomNumber(1, 9999999),
+            $this->faker->numberBetween(1, 9999999),
+            $this->faker->numberBetween(1, 9999999),
             $mob
         );
 

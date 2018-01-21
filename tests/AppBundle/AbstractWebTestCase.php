@@ -75,16 +75,13 @@ abstract class AbstractWebTestCase extends AbstractTestCase
     protected function logIn(User $user)
     {
         $session = $this->client->getContainer()->get('session');
-        $em = $this->client->getContainer()->get('doctrine')->getManager();
-
-        // the firewall context defaults to the firewall name
         $firewallContext = 'main';
 
         $token = new UsernamePasswordToken(
-            $em->getReference(User::class, $user),
+            $user,
             null,
             $firewallContext,
-            ['ROLE_ADMIN']
+            ['ROLE_USER']
         );
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();

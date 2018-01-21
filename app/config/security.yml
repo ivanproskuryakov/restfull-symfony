@@ -12,7 +12,7 @@ security:
     firewalls:
         user:
             pattern:             .*
-            context:             user
+            context:             main
             anonymous:           true
 
     access_control:

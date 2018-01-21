@@ -4,13 +4,20 @@ namespace Tests\AppBundle\Controller\Api;
 
 use Tests\AppBundle\AbstractWebTestCase;
 use Tests\Traits\MobTrait;
+use Tests\Traits\UserTrait;
 
 class ActionControllerTest extends AbstractWebTestCase
 {
+    use UserTrait;
     use MobTrait;
 
     public function testPostActionSuccess()
     {
+        $user = $this->newUserPersistent(
+            $this->faker->email,
+            $this->faker->numberBetween()
+        );
+        $this->logIn($user);
         $mob = $this->newMobPersistent();
 
         $data = [
@@ -35,8 +42,6 @@ class ActionControllerTest extends AbstractWebTestCase
         $content = $response->getContent();
         $statusCode = $response->getStatusCode();
         $result = json_decode($content, true);
-
-        var_dump($result);
 
         $this->assertEquals(201, $statusCode);
         $this->assertNotEmpty($response->headers->get('location'));

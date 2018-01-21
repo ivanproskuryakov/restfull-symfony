@@ -104,6 +104,14 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getUsername();
+    }
+
+    /**
      * @param  string $password
      * @return $this
      */

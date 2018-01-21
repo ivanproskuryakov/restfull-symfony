@@ -27,7 +27,6 @@ class Action
      * @var integer
      * @ORM\Column(type="integer")
      * @JMS\Expose
-     * @JMS\ReadOnly
      * @JMS\Type("integer")
      * @JMS\Groups({"collection","details"})
      */
@@ -37,7 +36,6 @@ class Action
      * @var Mob
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Mob", inversedBy="actions")
      * @JMS\Expose
-     * @JMS\MaxDepth(1)
      * @JMS\Type("AppBundle\Entity\Mob")
      * @JMS\Groups({"collection","details"})
      */
@@ -47,9 +45,9 @@ class Action
      * @var User
      * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="actions")
+     * @JMS\ReadOnly
      * @JMS\Expose
      * @JMS\Type("AppBundle\Entity\User")
-     * @JMS\MaxDepth(1)
      * @JMS\Groups({"collection","details"})
      */
     private $user;
