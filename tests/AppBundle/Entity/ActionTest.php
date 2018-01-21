@@ -18,7 +18,11 @@ class ActionTest extends AbstractTestCase
     public function testMobPersist()
     {
         $mob = $this->newMob();
-        $terrain = $this->newTerrainPersistent($mob);
+        $terrain = $this->newTerrainPersistent(
+            $this->faker->randomDigit,
+            $this->faker->randomDigit,
+            $mob
+        );
         $user = $this->newUserPersistent(
             $this->faker->email,
             $this->faker->numberBetween()

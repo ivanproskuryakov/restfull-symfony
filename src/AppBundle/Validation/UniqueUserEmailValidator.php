@@ -36,7 +36,6 @@ class UniqueUserEmailValidator extends ConstraintValidator
         if ($user) {
             $this->context
                 ->buildViolation($constraint->message)
-                ->setParameter('%email%', $value)
                 ->addViolation()
             ;
         }

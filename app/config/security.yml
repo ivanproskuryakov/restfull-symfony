@@ -7,7 +7,7 @@ security:
 
     providers:
         user:
-            entity: { class: Aisel\UserBundle\Entity\User, property: username }
+            entity: { class: AppBundle\Entity\User, property: username }
 
     firewalls:
         user:

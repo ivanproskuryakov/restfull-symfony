@@ -14,7 +14,11 @@ class TerrainTest extends AbstractTestCase
     public function testMobPersist()
     {
         $mob = $this->newMob();
-        $terrain = $this->newTerrainPersistent($mob);
+        $terrain = $this->newTerrainPersistent(
+            $this->faker->randomDigit,
+            $this->faker->randomDigit,
+            $mob
+        );
 
         $this->assertNotEmpty($terrain->getId());
 

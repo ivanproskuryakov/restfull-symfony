@@ -4,18 +4,25 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use JMS\Serializer\Annotation as JMS;
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
 use AppBundle\Entity\Traits\CreatedAtTrait;
 use AppBundle\Entity\Traits\UpdateAtTrait;
-
+use AppBundle\Validation\Constraint as AppValidation;
 /**
  * @JMS\ExclusionPolicy("all")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity()
- * @ORM\Table(name="app_terrain")
+ * @ORM\Table(
+ *     name="app_terrain",
+ *     uniqueConstraints={
+ *          @UniqueConstraint(name="coordinates_idx", columns={"x", "y"})
+ *     }
+ * )
+ * @AppValidation\UniqueTerrainCoordinates()
  */
 class Terrain
 {
@@ -47,7 +54,7 @@ class Terrain
     private $y;
 
     /**
-     * @var User
+     * @var Mob
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Mob", cascade={"persist", "remove"})
      * @JMS\Type("ArrayCollection<AppBundle\Entity\Mob>")
      * @JMS\Groups({"collection","details"})
@@ -67,6 +74,30 @@ class Terrain
 
         $this->updatedAt = new DateTime();
         $this->createdAt = new DateTime();
+    }
+
+    /**
+     * @return int
+     */
+    public function getX(): int
+    {
+        return $this->x;
+    }
+
+    /**
+     * @return int
+     */
+    public function getY(): int
+    {
+        return $this->y;
+    }
+
+    /**
+     * @return Mob
+     */
+    public function getMob(): Mob
+    {
+        return $this->mob;
     }
 
 }
