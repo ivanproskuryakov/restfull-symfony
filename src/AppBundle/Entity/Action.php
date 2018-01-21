@@ -19,25 +19,23 @@ use AppBundle\Entity\Traits\UpdateAtTrait;
  */
 class Action
 {
-    const ACTION_KISS = '1';
-    const ACTION_DANCE = '2';
-    const ACTION_LOVE = '3';
-
     use IdTrait;
     use UpdateAtTrait;
     use CreatedAtTrait;
 
     /**
-     * @var Terrain
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Terrain")
-     * @JMS\Type("ArrayCollection<AppBundle\Entity\Terrain>")
+     * @var Mob
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Mob")
+     * @JMS\Expose
+     * @JMS\Type("ArrayCollection<AppBundle\Entity\Mob>")
      * @JMS\Groups({"collection","details"})
      */
-    private $terrain;
+    private $mob;
 
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @JMS\ReadOnly
      * @JMS\Type("ArrayCollection<AppBundle\Entity\User>")
      * @JMS\Groups({"collection","details"})
      */
@@ -48,24 +46,24 @@ class Action
      */
     public function __construct()
     {
-        $this->updatedAt = new DateTime();
         $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     /**
-     * @return Terrain
+     * @return Mob
      */
-    public function getTerrain(): Terrain
+    public function getMob(): Mob
     {
-        return $this->terrain;
+        return $this->mob;
     }
 
     /**
-     * @param Terrain $terrain
+     * @param Mob $mob
      */
-    public function setTerrain(Terrain $terrain)
+    public function setMob(Mob $mob)
     {
-        $this->terrain = $terrain;
+        $this->mob = $mob;
     }
 
     /**
