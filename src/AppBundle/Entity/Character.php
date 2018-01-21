@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
@@ -25,6 +26,7 @@ class Character
 
     /**
      * @var string
+     * @Assert\NotNull()
      * @JMS\Expose
      * @JMS\Type("string")
      * @JMS\Groups({"collection","details"})

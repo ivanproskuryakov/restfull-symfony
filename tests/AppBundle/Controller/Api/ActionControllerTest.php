@@ -12,8 +12,12 @@ class ActionControllerTest extends AbstractWebTestCase
     public function testPostActionSuccess()
     {
         $mob = $this->newMobPersistent();
+
         $data = [
-            'mob_id' => $mob->getId(),
+            'type' => '1123',
+            'mob' => [
+                'id' => $mob->getId()
+            ],
         ];
 
         $this->client->request(
@@ -31,6 +35,8 @@ class ActionControllerTest extends AbstractWebTestCase
         $content = $response->getContent();
         $statusCode = $response->getStatusCode();
         $result = json_decode($content, true);
+
+        var_dump($result);
 
         $this->assertEquals(201, $statusCode);
         $this->assertNotEmpty($response->headers->get('location'));

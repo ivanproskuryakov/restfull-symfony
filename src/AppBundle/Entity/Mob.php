@@ -39,6 +39,15 @@ class Mob
     private $type;
 
     /**
+     * @var Action[]
+     * @JMS\Expose
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="mob", cascade={"remove"})
+     * @JMS\Type("ArrayCollection<AppBundle\Entity\Action>")
+     * @JMS\Groups({"collection","details"})
+     */
+    private $actions;
+
+    /**
      * @param integer $type
      */
     public function __construct($type)
@@ -63,4 +72,22 @@ class Mob
             ]
         );
     }
+
+    /**
+     * @return Action[]
+     */
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @param Action[] $actions
+     */
+    public function setActions(array $actions)
+    {
+        $this->actions = $actions;
+    }
+
+
 }

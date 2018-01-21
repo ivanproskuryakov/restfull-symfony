@@ -85,6 +85,15 @@ class User implements AdvancedUserInterface
     private $enabled = false;
 
     /**
+     * @var Action[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="user", cascade={"remove"})
+     * @JMS\Expose
+     * @JMS\Type("ArrayCollection<AppBundle\Entity\Action>")
+     * @JMS\Groups({"collection","details"})
+     */
+    private $actions;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -252,4 +261,21 @@ class User implements AdvancedUserInterface
     {
         return $this->enabled;
     }
+
+    /**
+     * @return Action[]
+     */
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @param Action[] $actions
+     */
+    public function setActions(array $actions)
+    {
+        $this->actions = $actions;
+    }
+
 }

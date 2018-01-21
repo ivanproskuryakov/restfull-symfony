@@ -24,10 +24,21 @@ class Action
     use CreatedAtTrait;
 
     /**
-     * @var Mob
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Mob")
+     * @var integer
+     * @ORM\Column(type="integer")
      * @JMS\Expose
-     * @JMS\Type("ArrayCollection<AppBundle\Entity\Mob>")
+     * @JMS\ReadOnly
+     * @JMS\Type("integer")
+     * @JMS\Groups({"collection","details"})
+     */
+    private $type;
+
+    /**
+     * @var Mob
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Mob", inversedBy="actions")
+     * @JMS\Expose
+     * @JMS\MaxDepth(1)
+     * @JMS\Type("AppBundle\Entity\Mob")
      * @JMS\Groups({"collection","details"})
      */
     private $mob;
@@ -35,9 +46,10 @@ class Action
     /**
      * @var User
      * @Gedmo\Blameable(on="create")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
-     * @JMS\ReadOnly
-     * @JMS\Type("ArrayCollection<AppBundle\Entity\User>")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="actions")
+     * @JMS\Expose
+     * @JMS\Type("AppBundle\Entity\User")
+     * @JMS\MaxDepth(1)
      * @JMS\Groups({"collection","details"})
      */
     private $user;
@@ -82,4 +94,22 @@ class Action
     {
         $this->user = $user;
     }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     */
+    public function setType(int $type)
+    {
+        $this->type = $type;
+    }
+
+
 }
