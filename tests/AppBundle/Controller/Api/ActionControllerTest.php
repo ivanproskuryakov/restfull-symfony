@@ -2,6 +2,7 @@
 
 namespace Tests\AppBundle\Controller\Api;
 
+use AppBundle\Entity\Action;
 use Tests\AppBundle\AbstractWebTestCase;
 use Tests\Traits\MobTrait;
 use Tests\Traits\UserTrait;
@@ -21,7 +22,7 @@ class ActionControllerTest extends AbstractWebTestCase
         $mob = $this->newMobPersistent();
 
         $data = [
-            'type' => '1123',
+            'type' => Action::ACTION_TYPE_ATTACK,
             'mob' => [
                 'id' => $mob->getId()
             ],

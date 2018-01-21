@@ -11,7 +11,7 @@ class TerrainTest extends AbstractTestCase
     use MobTrait;
     use TerrainTrait;
 
-    public function testMobPersist()
+    public function testTerrainPersist()
     {
         $mob = $this->newMob();
         $terrain = $this->newTerrainPersistent(

@@ -22,4 +22,7 @@ security:
         - { path: ^/api/user/, allow_if: "is_anonymous() and !is_authenticated()" }
 
         # API:other
-        - { path: ^/api/, role: [ROLE_USER] }
+        - { path: ^/api/action/, role: [ROLE_USER] }
+        - { path: ^/api/mob/, role: [ROLE_USER] }
+        - { path: ^/api/terrain/, role: [ROLE_USER] }
+        - { path: ^/api/action/, role: [ROLE_USER] }

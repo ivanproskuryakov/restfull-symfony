@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
@@ -19,12 +20,15 @@ use AppBundle\Entity\Traits\UpdateAtTrait;
  */
 class Action
 {
+    const ACTION_TYPE_ATTACK = 1;
+
     use IdTrait;
     use UpdateAtTrait;
     use CreatedAtTrait;
 
     /**
      * @var integer
+     * @Assert\NotNull()
      * @ORM\Column(type="integer")
      * @JMS\Expose
      * @JMS\Type("integer")
@@ -34,6 +38,7 @@ class Action
 
     /**
      * @var Mob
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Mob", inversedBy="actions")
      * @JMS\Expose
      * @JMS\Type("AppBundle\Entity\Mob")

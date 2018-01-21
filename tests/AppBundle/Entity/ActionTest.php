@@ -15,7 +15,7 @@ class ActionTest extends AbstractTestCase
     use MobTrait;
     use TerrainTrait;
 
-    public function testMobPersist()
+    public function testActionPersist()
     {
         $mob = $this->newMobPersistent();
         $user = $this->newUserPersistent(
