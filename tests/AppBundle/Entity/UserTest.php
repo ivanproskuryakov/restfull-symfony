@@ -20,6 +20,4 @@ class UserTest extends AbstractTestCase
 
         $this->removeEntity($user);
     }
-
-
 }

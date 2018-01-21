@@ -210,5 +210,4 @@ class UserControllerTest extends AbstractWebTestCase
         $this->assertEquals(200, $statusCode);
         $this->removeEntity($user);
     }
-
 }

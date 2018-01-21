@@ -34,5 +34,4 @@ class MobControllerTest extends AbstractWebTestCase
         $this->assertEquals($result['id'], $mob->getId());
         $this->removeEntity($mob);
     }
-
 }

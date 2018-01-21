@@ -28,6 +28,4 @@ class CharacterTest extends AbstractTestCase
         $this->removeEntity($character);
         $this->removeEntity($user);
     }
-
-
 }

@@ -30,11 +30,11 @@ class ApiExceptionListener
      *
      * @param string $code
      * @param string $message
-     * @param array  $headers
+     * @param array $headers
      *
      * @return JsonResponse $response
      */
-    private function createResponse($code, $message, $headers = [])
+    private function createResponse($code, $message, $headers = []): JsonResponse
     {
         return new JsonResponse(
             [
@@ -54,7 +54,7 @@ class ApiExceptionListener
      *
      * @return JsonResponse $response
      */
-    private function createErrorsResponse($errors, $headers = [])
+    private function createErrorsResponse($errors, $headers = []): JsonResponse
     {
         return new JsonResponse(
             [
@@ -74,7 +74,7 @@ class ApiExceptionListener
      *
      * @return JsonResponse $response
      */
-    private function exceptionEventProcessor(GetResponseForExceptionEvent $event)
+    private function exceptionEventProcessor(GetResponseForExceptionEvent $event): JsonResponse
     {
         $exception = $event->getException();
         $response = null;
@@ -99,11 +99,10 @@ class ApiExceptionListener
     /**
      * Response for NotFoundHttpException (Route was not found).
      *
-     * @param NotFoundHttpException $exception
-     *
+     * @param HttpExceptionInterface $exception
      * @return JsonResponse
      */
-    private function responseHttpException(HttpExceptionInterface $exception)
+    private function responseHttpException(HttpExceptionInterface $exception): JsonResponse
     {
         return $this->createResponse(
             $exception->getStatusCode(),
@@ -119,7 +118,7 @@ class ApiExceptionListener
      *
      * @return JsonResponse
      */
-    private function responseAPIValidationFailedException(ValidationFailedException $exception)
+    private function responseAPIValidationFailedException(ValidationFailedException $exception): JsonResponse
     {
         /**
          * @var ConstraintViolation $violation
@@ -138,10 +137,9 @@ class ApiExceptionListener
      * Response for Exception.
      *
      * @param Exception $exception
-     *
      * @return JsonResponse
      */
-    private function responseException(Exception $exception)
+    private function responseException(Exception $exception): JsonResponse
     {
         if (method_exists($exception, 'getStatusCode')) {
             $code = $exception->getStatusCode();

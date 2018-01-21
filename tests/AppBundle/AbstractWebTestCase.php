@@ -92,5 +92,4 @@ abstract class AbstractWebTestCase extends AbstractTestCase
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
     }
-
 }

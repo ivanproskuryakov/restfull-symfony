@@ -9,14 +9,12 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 class UserPersistenceListener
 {
-
     /**
      * @var EncoderFactory
      */
     protected $encoder;
 
     /**
-     * Constructor
      * @param EncoderFactory $encoder
      */
     public function __construct(EncoderFactory $encoder)
@@ -64,8 +62,6 @@ class UserPersistenceListener
     }
 
     /**
-     * setRole
-     *
      * @param LifecycleEventArgs $args
      */
     public function setRole(LifeCycleEventArgs $args)

@@ -24,5 +24,4 @@ class TerrainTest extends AbstractTestCase
 
         $this->removeEntity($terrain);
     }
-
 }

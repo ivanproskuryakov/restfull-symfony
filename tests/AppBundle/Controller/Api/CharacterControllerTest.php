@@ -35,5 +35,4 @@ class CharacterControllerTest extends AbstractWebTestCase
         $this->assertNotEmpty($response->headers->get('location'));
         $this->assertEmpty($result);
     }
-
 }

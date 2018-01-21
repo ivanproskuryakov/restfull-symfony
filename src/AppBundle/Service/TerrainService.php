@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager;
 
 use AppBundle\Entity\Mob;
 use AppBundle\Entity\Terrain;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 
 class TerrainService
 {
@@ -23,8 +25,8 @@ class TerrainService
     }
 
     /**
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function generateTerrain()
     {

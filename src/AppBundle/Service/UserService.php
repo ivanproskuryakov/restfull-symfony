@@ -57,7 +57,7 @@ class UserService implements UserProviderInterface
      * @param $password string
      * @throws UnprocessableEntityHttpException
      */
-    public function login(string $email,string  $password)
+    public function login(string $email, string  $password)
     {
         $user = $this->loadUserByEmail($email);
 

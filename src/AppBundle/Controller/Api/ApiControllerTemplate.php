@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller\Api;
 
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+
 use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +22,11 @@ abstract class ApiControllerTemplate extends Controller
 
     /**
      * @param Request $request
-     * @return mixed
+     * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
-    final public function postAction(Request $request)
+    final public function postAction(Request $request): Response
     {
         $this->postPreProcessor();
         $entity = $this->persistEntity($request);
@@ -46,11 +51,11 @@ abstract class ApiControllerTemplate extends Controller
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @throws NotFoundHttpException
-     * @return mixed
+     * @return Response
      */
-    final public function getAction($id)
+    final public function getAction(int $id): Response
     {
         $entity = $this->get('doctrine.orm.entity_manager')
             ->getRepository($this->model)
@@ -73,9 +78,9 @@ abstract class ApiControllerTemplate extends Controller
     }
 
     /**
-     * @return mixed
+     * @return Response
      */
-    final public function getCollectionAction()
+    final public function getCollectionAction(): Response
     {
         $collection = $this->get('doctrine.orm.entity_manager')
             ->getRepository($this->model)
@@ -104,6 +109,8 @@ abstract class ApiControllerTemplate extends Controller
     /**
      * @param Request $request
      * @return mixed
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     private function persistEntity(Request $request)
     {

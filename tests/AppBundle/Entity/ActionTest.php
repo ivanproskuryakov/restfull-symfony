@@ -31,6 +31,4 @@ class ActionTest extends AbstractTestCase
         $this->removeEntity($mob);
         $this->removeEntity($user);
     }
-
-
 }

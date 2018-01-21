@@ -37,5 +37,4 @@ class ActionControllerTest extends AbstractWebTestCase
         $this->assertEmpty($result);
         $this->removeEntity($mob);
     }
-
 }

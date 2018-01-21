@@ -17,6 +17,4 @@ class MobTest extends AbstractTestCase
 
         $this->removeEntity($mob);
     }
-
-
 }

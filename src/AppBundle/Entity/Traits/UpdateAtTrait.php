@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use DateTime;
+use Symfony\Component\Validator\Constraints\Date;
 
 trait UpdateAtTrait
 {
@@ -22,7 +23,7 @@ trait UpdateAtTrait
     /**
      * @return DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }

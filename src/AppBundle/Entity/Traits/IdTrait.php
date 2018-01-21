@@ -20,9 +20,7 @@ trait IdTrait
     private $id;
 
     /**
-     * Get id
-     *
-     * @return string
+     * @return integer
      */
     public function getId()
     {

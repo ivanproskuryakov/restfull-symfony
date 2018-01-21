@@ -19,7 +19,7 @@ class UserController extends ApiControllerTemplate
      * @param Request $request
      * @return JsonResponse
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request): JsonResponse
     {
         $payload = json_decode($request->getContent(), true);
 
