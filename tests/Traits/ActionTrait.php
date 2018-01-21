@@ -17,7 +17,7 @@ trait ActionTrait
     public function newAction(User $user, Mob $mob)
     {
         $action = new Action();
-        $action->setType($this->faker->numerBetween(1, 9999999));
+        $action->setType($this->faker->numberBetween(1, 9999999));
         $action->setUser($user);
         $action->setMob($mob);
 

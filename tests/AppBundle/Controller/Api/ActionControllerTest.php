@@ -42,10 +42,17 @@ class ActionControllerTest extends AbstractWebTestCase
         $content = $response->getContent();
         $statusCode = $response->getStatusCode();
         $result = json_decode($content, true);
+        $parts = explode('/', $response->headers->get('location'));
+        $id = array_pop($parts);
 
         $this->assertEquals(201, $statusCode);
         $this->assertNotEmpty($response->headers->get('location'));
         $this->assertEmpty($result);
+
+        $action = $this->em->getRepository('AppBundle:Action')->find($id);
+
+        $this->removeEntity($action);
         $this->removeEntity($mob);
+        $this->removeEntity($user);
     }
 }
