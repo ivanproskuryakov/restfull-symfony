@@ -15,8 +15,8 @@ class TerrainControllerTest extends AbstractWebTestCase
     {
         $mob = $this->newMob();
         $terrain = $this->newTerrainPersistent(
-            $this->faker->randomDigit,
-            $this->faker->randomDigit,
+            $this->faker->randomNumber(0, 9999999),
+            $this->faker->randomNumber(0, 9999999),
             $mob
         );
 
@@ -46,8 +46,8 @@ class TerrainControllerTest extends AbstractWebTestCase
     {
         $mob = $this->newMob();
         $terrain = $this->newTerrainPersistent(
-            $this->faker->randomDigit,
-            $this->faker->randomDigit,
+            $this->faker->randomNumber(0, 9999999),
+            $this->faker->randomNumber(0, 9999999),
             $mob
         );
 

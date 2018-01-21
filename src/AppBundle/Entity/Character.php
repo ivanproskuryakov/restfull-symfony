@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
@@ -23,6 +24,7 @@ class Character
     use CreatedAtTrait;
 
     /**
+     * @var string
      * @JMS\Expose
      * @JMS\Type("string")
      * @JMS\Groups({"collection","details"})
@@ -31,6 +33,7 @@ class Character
     private $name;
 
     /**
+     * @var int
      * @JMS\Expose
      * @JMS\ReadOnly
      * @JMS\Type("integer")
@@ -41,6 +44,7 @@ class Character
 
     /**
      * @var User
+     * @Gedmo\Blameable(on="create")
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      * @JMS\ReadOnly
      * @JMS\Type("ArrayCollection<AppBundle\Entity\User>")
@@ -58,6 +62,38 @@ class Character
     }
 
     /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return int
+     */
+    public function getExperience(): int
+    {
+        return $this->experience;
+    }
+
+    /**
+     * @param int $experience
+     */
+    public function setExperience(int $experience)
+    {
+        $this->experience = $experience;
+    }
+
+    /**
      * @return User
      */
     public function getUser(): User
@@ -71,37 +107,5 @@ class Character
     public function setUser(User $user)
     {
         $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getExperience()
-    {
-        return $this->experience;
-    }
-
-    /**
-     * @param mixed $experience
-     */
-    public function setExperience($experience)
-    {
-        $this->experience = $experience;
     }
 }

@@ -95,14 +95,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getEmail();
-    }
-
-    /**
      * @param  string $password
      * @return $this
      */
@@ -171,8 +163,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set email
-     *
      * @param  string $email
      * @return User
      */
@@ -184,8 +174,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Get email
-     *
      * @return string
      */
     public function getEmail()
@@ -239,44 +227,10 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param string $roles
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
-
-    /**
      * @inheritDoc
      */
     public function eraseCredentials()
     {
-    }
-
-    /**
-     * @see \Serializable::serialize()
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->email,
-            $this->password,
-            $this->salt,
-        ));
-    }
-
-    /**
-     * @see \Serializable::unserialize()
-     */
-    public function unserialize($serialized)
-    {
-        list(
-            $this->id,
-            $this->email,
-            $this->password,
-            $this->salt,
-            ) = unserialize($serialized);
     }
 
     public function isAccountNonExpired()

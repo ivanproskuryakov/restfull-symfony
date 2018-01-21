@@ -4,14 +4,15 @@ namespace AppBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
 use DateTime;
-use Symfony\Component\Validator\Constraints\Date;
 
 trait UpdateAtTrait
 {
 
     /**
      * @var DateTime
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      * @JMS\Expose
      * @JMS\ReadOnly

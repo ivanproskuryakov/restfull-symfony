@@ -36,7 +36,6 @@ class UserPersistenceListener
     public function prePersist(LifeCycleEventArgs $args)
     {
         $this->setPassword($args);
-        $this->setRole($args);
     }
 
     /**
@@ -58,19 +57,6 @@ class UserPersistenceListener
 
             $object->setPassword($encodedPassword);
             $object->setLastLogin(new \DateTime(date('Y-m-d H:i:s')));
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $args
-     */
-    public function setRole(LifeCycleEventArgs $args)
-    {
-        /** @var User $object */
-        $object = $args->getEntity();
-
-        if ($object instanceof AdvancedUserInterface) {
-            $object->setRoles(User::ROLE_USER);
         }
     }
 }

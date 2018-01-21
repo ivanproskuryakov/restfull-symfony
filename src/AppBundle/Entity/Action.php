@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
 use DateTime;
 
 use AppBundle\Entity\Traits\IdTrait;
@@ -33,6 +34,7 @@ class Action
 
     /**
      * @var User
+     * @Gedmo\Blameable(on="create")
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      * @JMS\ReadOnly
      * @JMS\Type("ArrayCollection<AppBundle\Entity\User>")

@@ -26,8 +26,8 @@ use AppBundle\Validation\Constraint as AppValidation;
  */
 class Terrain
 {
-    const SIZE_X = 100;
-    const SIZE_Y = 100;
+    const SIZE_X = 10;
+    const SIZE_Y = 10;
 
     use IdTrait;
     use UpdateAtTrait;
