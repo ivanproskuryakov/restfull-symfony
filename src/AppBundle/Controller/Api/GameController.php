@@ -9,7 +9,6 @@ use Doctrine\ORM\OptimisticLockException;
 
 class GameController extends Controller
 {
-
     /**
      * @return Response
      */

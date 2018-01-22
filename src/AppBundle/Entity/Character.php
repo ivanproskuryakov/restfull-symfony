@@ -47,7 +47,7 @@ class Character
     /**
      * @var User
      * @Gedmo\Blameable(on="create")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", mappedBy="character")
      * @JMS\ReadOnly
      * @JMS\Type("ArrayCollection<AppBundle\Entity\User>")
      * @JMS\Groups({"collection","details"})

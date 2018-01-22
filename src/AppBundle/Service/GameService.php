@@ -42,7 +42,6 @@ class GameService
         $character->setExperience($this->getExperienceFromMob($mob));
         $mob->setIsKilled(true);
 
-
         $this->em->persist($character);
         $this->em->persist($mob);
         $this->em->flush([
@@ -57,6 +56,8 @@ class GameService
      */
     public function newGame()
     {
+        $this->deleteGameHistory();
+
         for ($x = 0; $x < Terrain::SIZE_X; $x++) {
             for ($y = 0; $y < Terrain::SIZE_Y; $y++) {
                 $type = Mob::getRandomType();
@@ -77,7 +78,23 @@ class GameService
      */
     public function getProgress(User $user): GameProgress
     {
-        return new GameProgress(1,1,1,1,true);
+        // todo: finish this part
+
+        return new GameProgress(
+            $user->getCharacter()->getExperience(),
+            0,
+            0,
+            0,
+            true
+        );
+    }
+
+    public function deleteGameHistory()
+    {
+        $this->em->createQuery('DELETE AppBundle:Terrain t')->execute();
+        $this->em->createQuery('DELETE AppBundle:Mob m')->execute();
+        $this->em->createQuery('DELETE AppBundle:Action a')->execute();
+        $this->em->createQuery('DELETE AppBundle:Character c')->execute();
     }
 
     /**
@@ -90,4 +107,5 @@ class GameService
             * rand(1, 9)
             * self::EXPERIENCE_MULTIPLIER;
     }
+
 }
