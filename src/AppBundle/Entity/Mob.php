@@ -39,6 +39,16 @@ class Mob
     private $type;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\ReadOnly
+     * @JMS\Type("boolean")
+     * @JMS\Groups({"collection","details"})
+     */
+    private $isKilled = false;
+
+    /**
      * @var Action[]
      * @JMS\Expose
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="mob", cascade={"remove"})
@@ -87,6 +97,30 @@ class Mob
     public function setActions(array $actions)
     {
         $this->actions = $actions;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isKilled(): bool
+    {
+        return $this->isKilled;
+    }
+
+    /**
+     * @param bool $isKilled
+     */
+    public function setIsKilled(bool $isKilled)
+    {
+        $this->isKilled = $isKilled;
     }
 
 

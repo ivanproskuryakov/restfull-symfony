@@ -1,0 +1,3 @@
+app_game_progress:
+    path: /
+    defaults: { _controller: AppBundle:Api/Game:progress }

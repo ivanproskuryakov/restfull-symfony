@@ -13,3 +13,6 @@ terrain:
 character:
     prefix:   /character
     resource: "@AppBundle/Resources/config/routing/api/character.yml"
+game:
+    prefix:   /game
+    resource: "@AppBundle/Resources/config/routing/api/game.yml"

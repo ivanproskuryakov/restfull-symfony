@@ -88,10 +88,21 @@ class User implements AdvancedUserInterface
      * @var Action[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="user", cascade={"remove"})
      * @JMS\Expose
+     * @JMS\ReadOnly
      * @JMS\Type("ArrayCollection<AppBundle\Entity\Action>")
      * @JMS\Groups({"collection","details"})
      */
     private $actions;
+
+    /**
+     * @var Character
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Character", cascade={"remove"})
+     * @JMS\Expose
+     * @JMS\ReadOnly
+     * @JMS\Type("ArrayCollection<AppBundle\Entity\Character>")
+     * @JMS\Groups({"collection","details"})
+     */
+    private $character;
 
     /**
      * Constructor
@@ -284,6 +295,22 @@ class User implements AdvancedUserInterface
     public function setActions(array $actions)
     {
         $this->actions = $actions;
+    }
+
+    /**
+     * @return Character
+     */
+    public function getCharacter(): Character
+    {
+        return $this->character;
+    }
+
+    /**
+     * @param Character $character
+     */
+    public function setCharacter(Character $character)
+    {
+        $this->character = $character;
     }
 
 }

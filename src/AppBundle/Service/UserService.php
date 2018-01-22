@@ -112,11 +112,11 @@ class UserService implements UserProviderInterface
                 )
             );
         }
+
         $user = $this
             ->em
             ->getRepository(User::class)
             ->find($user->getId());
-
 
         return $user;
     }
