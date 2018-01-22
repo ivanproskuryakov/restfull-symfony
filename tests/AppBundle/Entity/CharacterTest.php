@@ -17,7 +17,6 @@ class CharacterTest extends AbstractTestCase
             $this->faker->email,
             $this->faker->numberBetween()
         );
-
         $character = $this->newCharacterPersistent(
             $user,
             $this->faker->name

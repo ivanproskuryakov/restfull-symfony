@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Controller\Api\GameProgress;
+use AppBundle\Game\GameStatus;
 use AppBundle\Entity\Mob;
 use AppBundle\Entity\Terrain;
 
@@ -74,13 +74,13 @@ class GameService
 
     /**
      * @param User $user
-     * @return GameProgress
+     * @return GameStatus
      */
-    public function getProgress(User $user): GameProgress
+    public function getStatus(User $user): GameStatus
     {
         // todo: finish this part
 
-        return new GameProgress(
+        return new GameStatus(
             $user->getCharacter()->getExperience(),
             0,
             0,

@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Controller\Api;
+namespace AppBundle\Game;
 
-class GameProgress
+class GameStatus
 {
     /**
      * @var integer

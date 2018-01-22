@@ -26,3 +26,4 @@ security:
         - { path: ^/api/mob/, role: [ROLE_USER] }
         - { path: ^/api/terrain/, role: [ROLE_USER] }
         - { path: ^/api/action/, role: [ROLE_USER] }
+        - { path: ^/api/game/, role: [ROLE_USER] }

@@ -1,3 +1,7 @@
-app_game_progress:
-    path: /
-    defaults: { _controller: AppBundle:Api/Game:progress }
+app_game_status:
+    path: /status
+    defaults: { _controller: AppBundle:Api/Game:status }
+
+app_game_new:
+    path: /mew
+    defaults: { _controller: AppBundle:Api/Game:new }
