@@ -38,12 +38,33 @@ class CharacterControllerTest extends AbstractWebTestCase
         $content = $response->getContent();
         $statusCode = $response->getStatusCode();
         $result = json_decode($content, true);
+        $parts = explode('/', $response->headers->get('location'));
+        $characterId = array_pop($parts);
 
-//        $this->assertEquals(201, $statusCode);
-//        $this->assertNotEmpty($response->headers->get('location'));
-//        $this->assertEmpty($result);
+        $this->assertEquals(201, $statusCode);
+        $this->assertNotEmpty($response->headers->get('location'));
+        $this->assertEmpty($result);
 
-        var_dump($result);
-//        var_dump($user);
+        // Ensure that character are included in user's API
+
+        $this->client->request(
+            'GET',
+            $this->generateRoute('app_user_get', [
+                'id' => $user->getId()
+            ]),
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ]
+        );
+
+        $response = $this->client->getResponse();
+        $content = $response->getContent();
+        $statusCode = $response->getStatusCode();
+        $result = json_decode($content, true);
+
+        $this->assertEquals(200, $statusCode);
+        $this->assertEquals($result['character']['id'], $characterId);
     }
 }

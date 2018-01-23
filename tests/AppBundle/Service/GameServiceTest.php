@@ -30,6 +30,6 @@ class GameServiceTest extends AbstractTestCase
         $this->assertNotEmpty($terrain);
 
         // Populate
-        $gameService->deleteGameHistory();
+        $gameService->resetGame();
     }
 }

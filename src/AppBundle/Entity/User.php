@@ -96,7 +96,7 @@ class User implements AdvancedUserInterface
 
     /**
      * @var Character
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Character", inversedBy="user", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Character", mappedBy="user", cascade={"remove"})
      * @JMS\Expose
      * @JMS\ReadOnly
      * @JMS\Type("AppBundle\Entity\Character")
@@ -295,22 +295,6 @@ class User implements AdvancedUserInterface
     public function setActions(array $actions)
     {
         $this->actions = $actions;
-    }
-
-    /**
-     * @return Character
-     */
-    public function getCharacter(): Character
-    {
-        return $this->character;
-    }
-
-    /**
-     * @param Character $character
-     */
-    public function setCharacter(Character $character)
-    {
-        $this->character = $character;
     }
 
 }

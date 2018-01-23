@@ -2,15 +2,17 @@
 
 namespace AppBundle\Service;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+use LogicException;
+
 use AppBundle\Game\GameStatus;
 use AppBundle\Entity\Mob;
 use AppBundle\Entity\Terrain;
-
 use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Action;
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\OptimisticLockException;
+
 
 class GameService
 {
@@ -36,7 +38,13 @@ class GameService
      */
     public function addExperienceToCharacter(Action $action)
     {
-        $character = $action->getUser()->getCharacter();
+        $character = $this
+            ->em
+            ->getRepository('AppBundle:Character')
+            ->findOneBy([
+                'user' => $action->getUser()->getId()
+            ]);
+
         $mob = $action->getMob();
 
         $character->setExperience($this->getExperienceFromMob($mob));
@@ -56,7 +64,7 @@ class GameService
      */
     public function newGame()
     {
-        $this->deleteGameHistory();
+        $this->resetGame();
 
         for ($x = 0; $x < Terrain::SIZE_X; $x++) {
             for ($y = 0; $y < Terrain::SIZE_Y; $y++) {
@@ -78,10 +86,19 @@ class GameService
      */
     public function getStatus(User $user): GameStatus
     {
-        // todo: finish this part
+        $character = $this
+            ->em
+            ->getRepository('AppBundle:Character')
+            ->findOneBy([
+                'user' => $user->getId()
+            ]);
+
+        if (!$character) {
+            throw new LogicException('You need to have a character to play the game.');
+        }
 
         return new GameStatus(
-            $user->getCharacter()->getExperience(),
+            $character->getExperience(),
             0,
             0,
             0,
@@ -89,7 +106,7 @@ class GameService
         );
     }
 
-    public function deleteGameHistory()
+    public function resetGame()
     {
         $this->em->createQuery('DELETE AppBundle:Terrain t')->execute();
         $this->em->createQuery('DELETE AppBundle:Mob m')->execute();

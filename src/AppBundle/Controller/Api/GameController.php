@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Api;
 
 use Symfony\Component\HttpFoundation\Response;
-use LogicException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 
@@ -14,11 +13,6 @@ class GameController extends ApiControllerTemplate
      */
     final public function statusAction(): Response
     {
-
-        if (null === $this->getUser()->getCharacter()) {
-            throw new LogicException('Create character first');
-        }
-
         $progress = $this
             ->get('app_game.service')
             ->getStatus($this->getUser());
@@ -30,7 +24,6 @@ class GameController extends ApiControllerTemplate
 
     /**
      * @return Response
-     * @throws LogicException
      * @throws ORMException
      * @throws OptimisticLockException
      */
