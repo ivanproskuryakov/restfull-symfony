@@ -105,6 +105,7 @@ class GameService
             throw new LogicException('You need to have a character to play the game.');
         }
 
+        // todo: is missing ...
         return new GameStatus(
             $character->getExperience(),
             0,

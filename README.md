@@ -1,10 +1,11 @@
 #Auto1 Coding Challenge
 
+Cleanup:
+```
+bin/console doctrine:schema:drop --force && bin/console doctrine:schema:create
+```
 
-
-Please read the following docs:
-- [Introduction to the challenge](docs/challenge.md)
-- [What is included](docs/desc.md)
-- [Installing the application](docs/install.md)
-
-Feel free to remove this file and provide your own documentation once your challenge is done.
+Tests:
+```
+vendor/bin/phpunit
+```

@@ -28,7 +28,7 @@ class GameControllerTest extends AbstractWebTestCase
         $this->logIn($user);
 
         $this->client->request(
-            'GET',
+            'POST',
             $this->generateRoute('app_game_status'),
             [],
             [],
@@ -62,7 +62,7 @@ class GameControllerTest extends AbstractWebTestCase
         $this->logIn($user);
 
         $this->client->request(
-            'GET',
+            'POST',
             $this->generateRoute('app_game_new'),
             [],
             [],
@@ -82,49 +82,40 @@ class GameControllerTest extends AbstractWebTestCase
         $this->removeEntity($user);
     }
 
-    public function testPostActionSuccess()
+    public function testAttackAction()
     {
-//        $user = $this->newUserPersistent(
-//            $this->faker->email,
-//            $this->faker->numberBetween()
-//        );
-//        $this->logIn($user);
-//        $mob = $this->newMobPersistent();
-//
-//        $data = [
-//            'type' => Action::ACTION_TYPE_ATTACK,
-//            'mob' => [
-//                'id' => $mob->getId()
-//            ],
-//        ];
-//
-//        $this->client->request(
-//            'POST',
-//            $this->generateRoute('app_action_post'),
-//            [],
-//            [],
-//            [
-//                'CONTENT_TYPE' => 'application/json',
-//            ],
-//            json_encode($data)
-//        );
-//
-//        $response = $this->client->getResponse();
-//        $content = $response->getContent();
-//        $statusCode = $response->getStatusCode();
-//        $result = json_decode($content, true);
-//        $parts = explode('/', $response->headers->get('location'));
-//        $id = array_pop($parts);
-//
-//        $this->assertEquals(201, $statusCode);
-//        $this->assertNotEmpty($response->headers->get('location'));
-//        $this->assertEmpty($result);
-//
-//        $action = $this->em->getRepository('AppBundle:Action')->find($id);
-//
-//        $this->removeEntity($action);
-//        $this->removeEntity($mob);
-//        $this->removeEntity($user);
+        $user = $this->newUserPersistent(
+            $this->faker->email,
+            $this->faker->numberBetween()
+        );
+        $character = $this->newCharacterPersistent(
+            $user,
+            $this->faker->name
+        );
+
+        $this->logIn($user);
+        $mob = $this->newMobPersistent();
+
+        $this->client->request(
+            'POST',
+            $this->generateRoute('app_game_action_attack',[
+                'mob' => $mob->getId(),
+                'type' => Action::ACTION_TYPE_ATTACK,
+            ]),
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ]
+        );
+
+        $response = $this->client->getResponse();
+        $content = $response->getContent();
+        $statusCode = $response->getStatusCode();
+        $result = json_decode($content, true);
+
+        $this->assertEquals(200, $statusCode);
+        $this->assertEmpty($result);
     }
 
 }

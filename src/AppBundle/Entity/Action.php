@@ -21,6 +21,8 @@ use AppBundle\Entity\Traits\UpdateAtTrait;
 class Action
 {
     const ACTION_TYPE_ATTACK = 1;
+    const ACTION_TYPE_DEFEND = 2;
+    const ACTION_TYPE_RUN = 3;
 
     use IdTrait;
     use UpdateAtTrait;

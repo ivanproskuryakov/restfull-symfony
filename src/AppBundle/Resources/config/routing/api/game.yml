@@ -1,7 +1,14 @@
 app_game_status:
     path: /status
     defaults: { _controller: AppBundle:Api/Game:status }
+    methods:  [POST]
 
 app_game_new:
     path: /mew
     defaults: { _controller: AppBundle:Api/Game:new }
+    methods:  [POST]
+
+app_game_action_attack:
+    path: /attack/{mob}/{type}
+    defaults: { _controller: AppBundle:Api/Game:attack }
+    methods:  [POST]
