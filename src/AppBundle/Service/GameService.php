@@ -13,7 +13,6 @@ use AppBundle\Entity\Terrain;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Action;
 
-
 class GameService
 {
     /**

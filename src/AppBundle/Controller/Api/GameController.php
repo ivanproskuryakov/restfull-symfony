@@ -51,7 +51,7 @@ class GameController extends ApiControllerTemplate
     final public function attackAction(Mob $mob, string $type): Response
     {
         switch (true) {
-            case $type == Action::ACTION_TYPE_ATTACK;
+            case $type == Action::ACTION_TYPE_ATTACK:
                 $this
                     ->get('app_game.service')
                     ->attack(
@@ -59,16 +59,14 @@ class GameController extends ApiControllerTemplate
                         $mob
                     );
                 break;
-            case $type == Action::ACTION_TYPE_DEFEND;
+            case $type == Action::ACTION_TYPE_DEFEND:
                 // todo: ...
                 break;
-            case $type == Action::ACTION_TYPE_RUN;
+            case $type == Action::ACTION_TYPE_RUN:
                 // todo: ...
                 break;
         }
 
         return new Response();
     }
-
-
 }

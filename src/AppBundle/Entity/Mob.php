@@ -134,5 +134,4 @@ class Mob
             * rand(1, 9)
             * self::EXPERIENCE_MULTIPLIER;
     }
-
 }

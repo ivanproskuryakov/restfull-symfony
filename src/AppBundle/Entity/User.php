@@ -296,5 +296,4 @@ class User implements AdvancedUserInterface
     {
         $this->actions = $actions;
     }
-
 }

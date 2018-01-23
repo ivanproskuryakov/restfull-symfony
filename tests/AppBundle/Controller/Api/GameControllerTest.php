@@ -98,7 +98,7 @@ class GameControllerTest extends AbstractWebTestCase
 
         $this->client->request(
             'POST',
-            $this->generateRoute('app_game_action_attack',[
+            $this->generateRoute('app_game_action_attack', [
                 'mob' => $mob->getId(),
                 'type' => Action::ACTION_TYPE_ATTACK,
             ]),
@@ -117,5 +117,4 @@ class GameControllerTest extends AbstractWebTestCase
         $this->assertEquals(200, $statusCode);
         $this->assertEmpty($result);
     }
-
 }

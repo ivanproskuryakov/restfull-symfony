@@ -110,5 +110,4 @@ class Character
     {
         $this->user = $user;
     }
-
 }

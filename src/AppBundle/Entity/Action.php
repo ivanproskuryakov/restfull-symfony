@@ -115,6 +115,4 @@ class Action
     {
         $this->type = $type;
     }
-
-
 }

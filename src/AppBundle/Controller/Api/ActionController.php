@@ -10,5 +10,4 @@ class ActionController extends ApiControllerTemplate
      * @var string
      */
     protected $model = Action::class;
-
 }
