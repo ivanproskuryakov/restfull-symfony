@@ -65,16 +65,9 @@ abstract class ApiControllerTemplate extends Controller
             throw new NotFoundHttpException();
         }
 
-        $serializedEntity = $this
-            ->container
-            ->get('jms_serializer')
-            ->serialize(
-                $entity,
-                'json',
-                SerializationContext::create()->enableMaxDepthChecks()
-            );
-
-        return new Response($serializedEntity);
+        return new Response(
+            $this->serializeObject($entity)
+        );
     }
 
     /**
@@ -96,6 +89,22 @@ abstract class ApiControllerTemplate extends Controller
             );
 
         return new Response($serializedCollection);
+    }
+
+    /**
+     * @param mixed $object
+     * @return string
+     */
+    protected function serializeObject($object): string
+    {
+        return $this
+            ->container
+            ->get('jms_serializer')
+            ->serialize(
+                $object,
+                'json',
+                SerializationContext::create()->enableMaxDepthChecks()
+            );
     }
 
     /**

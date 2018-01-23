@@ -37,4 +37,5 @@ class ActionPersistenceListener
             $this->gameService->addExperienceToCharacter($action);
         }
     }
+
 }

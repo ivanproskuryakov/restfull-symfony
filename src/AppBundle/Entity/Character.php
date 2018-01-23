@@ -47,7 +47,8 @@ class Character
     /**
      * @var User
      * @Gedmo\Blameable(on="create")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", mappedBy="character")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", mappedBy="user")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\ReadOnly
      * @JMS\Type("ArrayCollection<AppBundle\Entity\User>")
      * @JMS\Groups({"collection","details"})
@@ -110,4 +111,5 @@ class Character
     {
         $this->user = $user;
     }
+
 }

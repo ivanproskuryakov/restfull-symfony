@@ -96,10 +96,10 @@ class User implements AdvancedUserInterface
 
     /**
      * @var Character
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Character", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Character", inversedBy="user", cascade={"all"})
      * @JMS\Expose
      * @JMS\ReadOnly
-     * @JMS\Type("ArrayCollection<AppBundle\Entity\Character>")
+     * @JMS\Type("AppBundle\Entity\Character")
      * @JMS\Groups({"collection","details"})
      */
     private $character;

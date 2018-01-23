@@ -15,11 +15,11 @@ trait CharacterTrait
      */
     public function newCharacter(User $user, $name)
     {
-        $action = new Character();
-        $action->setUser($user);
-        $action->setName($name);
+        $character = new Character();
+        $character->setUser($user);
+        $character->setName($name);
 
-        return $action;
+        return $character;
     }
 
     /**
@@ -29,11 +29,11 @@ trait CharacterTrait
      */
     protected function newCharacterPersistent(User $user, $name)
     {
-        $action = $this->newCharacter($user, $name);
+        $character = $this->newCharacter($user, $name);
 
-        $this->em->persist($action);
-        $this->em->flush($action);
+        $this->em->persist($character);
+        $this->em->flush($character);
 
-        return $action;
+        return $character;
     }
 }

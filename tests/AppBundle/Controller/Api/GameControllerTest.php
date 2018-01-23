@@ -21,6 +21,7 @@ class GameControllerTest extends AbstractWebTestCase
             $user,
             $this->faker->name
         );
+
         $this->logIn($user);
 
         $this->client->request(
@@ -38,9 +39,12 @@ class GameControllerTest extends AbstractWebTestCase
         $statusCode = $response->getStatusCode();
         $result = json_decode($content, true);
 
-//        $this->assertEquals(200, $statusCode);
-
-        var_dump($result);
+        $this->assertEquals(200, $statusCode);
+        $this->assertEquals(0, $result['experience']);
+        $this->assertEquals(0, $result['animals_killed']);
+        $this->assertEquals(0, $result['peasants_killed']);
+        $this->assertEquals(0, $result['monsters_killed']);
+        $this->assertEquals(true, $result['is_finished']);
 
         $this->removeEntity($character);
         $this->removeEntity($user);
