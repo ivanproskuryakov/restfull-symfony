@@ -1,8 +1,0 @@
-#services:
-#    app_action.persistence.listener:
-#        class: AppBundle\EventListener\ActionPersistenceListener
-#        arguments:
-#            - "@app_game.service"
-#        tags:
-#            - { name: doctrine.event_listener, event: prePersist }
-#            - { name: doctrine.event_listener, event: preUpdate }

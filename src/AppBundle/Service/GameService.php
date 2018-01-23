@@ -16,8 +16,6 @@ use AppBundle\Entity\Action;
 
 class GameService
 {
-    const EXPERIENCE_MULTIPLIER = 10;
-
     /**
      * @var EntityManager
      */
@@ -32,30 +30,40 @@ class GameService
     }
 
     /**
-     * @param Action $action
+     * @param User $user
+     * @param Mob $mob
      * @throws ORMException
      * @throws OptimisticLockException
+     * @return Action
      */
-    public function addExperienceToCharacter(Action $action)
+    public function attack(User $user, Mob $mob): Action
     {
         $character = $this
             ->em
             ->getRepository('AppBundle:Character')
             ->findOneBy([
-                'user' => $action->getUser()->getId()
+                'user' => $user->getId()
             ]);
+        $character->setExperience($mob->getExperience());
+
+        $action = new Action();
+        $action->setUser($user);
+        $action->setMob($mob);
+        $action->setType(Action::ACTION_TYPE_ATTACK);
 
         $mob = $action->getMob();
-
-        $character->setExperience($this->getExperienceFromMob($mob));
         $mob->setIsKilled(true);
 
+        $this->em->persist($action);
         $this->em->persist($character);
         $this->em->persist($mob);
         $this->em->flush([
+            $action,
             $character,
             $mob
         ]);
+
+        return $action;
     }
 
     /**
@@ -113,16 +121,4 @@ class GameService
         $this->em->createQuery('DELETE AppBundle:Action a')->execute();
         $this->em->createQuery('DELETE AppBundle:Character c')->execute();
     }
-
-    /**
-     * @param Mob $mob
-     * @return int
-     */
-    private function getExperienceFromMob(Mob $mob): int
-    {
-        return $mob->getType()
-            * rand(1, 9)
-            * self::EXPERIENCE_MULTIPLIER;
-    }
-
 }

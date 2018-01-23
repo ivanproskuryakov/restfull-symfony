@@ -18,6 +18,8 @@ use AppBundle\Entity\Traits\UpdateAtTrait;
  */
 class Mob
 {
+    const EXPERIENCE_MULTIPLIER = 10;
+
     const TYPE_SNAKE = 1;
     const TYPE_DOG = 2;
     const TYPE_FARMER = 3;
@@ -123,5 +125,14 @@ class Mob
         $this->isKilled = $isKilled;
     }
 
+    /**
+     * @return int
+     */
+    public function getExperience(): int
+    {
+        return $this->getType()
+            * rand(1, 9)
+            * self::EXPERIENCE_MULTIPLIER;
+    }
 
 }
