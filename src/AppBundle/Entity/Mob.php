@@ -53,7 +53,7 @@ class Mob
     /**
      * @var Action[]
      * @JMS\Expose
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="mob", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="mob")
      * @JMS\Type("ArrayCollection<AppBundle\Entity\Action>")
      * @JMS\Groups({"collection","details"})
      */

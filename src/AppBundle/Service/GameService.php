@@ -116,9 +116,11 @@ class GameService
 
     public function resetGame()
     {
+        //todo: to be improved ...
+
         $this->em->createQuery('DELETE AppBundle:Terrain t')->execute();
-        $this->em->createQuery('DELETE AppBundle:Mob m')->execute();
         $this->em->createQuery('DELETE AppBundle:Action a')->execute();
+        $this->em->createQuery('DELETE AppBundle:Mob m')->execute();
         $this->em->createQuery('DELETE AppBundle:Character c')->execute();
     }
 }

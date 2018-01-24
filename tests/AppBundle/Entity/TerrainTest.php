@@ -23,5 +23,6 @@ class TerrainTest extends AbstractTestCase
         $this->assertNotEmpty($terrain->getId());
 
         $this->removeEntity($terrain);
+        $this->removeEntity($mob);
     }
 }

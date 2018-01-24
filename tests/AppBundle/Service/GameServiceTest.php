@@ -24,7 +24,7 @@ class GameServiceTest extends AbstractTestCase
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function testGenerateTerrainSuccess()
+    public function testGenerateTerrain()
     {
         $gameService = $this->getContainer()->get('app_game.service');
 
