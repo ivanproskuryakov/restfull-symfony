@@ -1,4 +1,4 @@
-##Commands in use:
+## Commands in use:
 ```
 composer install
 bin/console doctrine:schema:drop --force
@@ -9,7 +9,7 @@ php-cs-fixer fix tests/
 php-cs-fixer fix src/
 ```
 
-##About:
+## About:
 I'm a big fan of writing as less code as possible, less code was written - less time was spent. 
 Annotations for classes like @author were avoided since it's not open-source code and git is used.
 Description annotations for methods were also avoided, a code must be self-documented. 
